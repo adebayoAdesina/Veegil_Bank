@@ -5,7 +5,7 @@ import '../util/utils.dart';
 import '../widgets/log_button.dart';
 
 class LogInOrSignUpScreen extends StatelessWidget {
-  static const id = '/';
+  static const id = 'select';
   const LogInOrSignUpScreen({Key? key}) : super(key: key);
 
   @override

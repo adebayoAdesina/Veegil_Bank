@@ -25,7 +25,7 @@ class LogButton extends StatelessWidget {
           
           color: isMain
               ? Theme.of(context).colorScheme.primary
-              : AppColor().kGrayThreeColor.withOpacity(0.5),
+              : AppColor().kGrayThreeOpacityColor,
           borderRadius: BorderRadius.circular(40),
           border: Border.all(
             color: isMain ? Theme.of(context).colorScheme.primary: Theme.of(context).scaffoldBackgroundColor,
