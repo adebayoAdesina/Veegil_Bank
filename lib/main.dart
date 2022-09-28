@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_banking/constant/colors.dart';
 import 'package:simple_banking/provider/app_data.dart';
@@ -19,9 +20,15 @@ class MyApp extends StatelessWidget {
           create: (context) => AppData(),
         ),
       ],
-      child: MaterialApp(
-        title: 'SimpleBank',
-        theme: ThemeData(
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        systemNavigationBarColor: AppColor().kGrayThreeOpacityColor, 
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+        
+        child: MaterialApp(
+          title: 'SimpleBank',
+          theme: ThemeData(
             colorScheme: ColorScheme(
               brightness: Brightness.light,
               primary: AppColor().kYellowColor,
@@ -36,11 +43,13 @@ class MyApp extends StatelessWidget {
               onSurface: AppColor().kWhiteColor,
             ),
             scaffoldBackgroundColor: AppColor().kGrayOneColor,
-            
-            appBarTheme:
-                AppBarTheme(backgroundColor: AppColor().kGrayOneColor)),
-        initialRoute: '/',
-        routes: routes,
+            appBarTheme: AppBarTheme(
+              backgroundColor: AppColor().kGrayOneColor,
+            ),
+          ),
+          initialRoute: '/',
+          routes: routes,
+        ),
       ),
     );
   }

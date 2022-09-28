@@ -8,7 +8,7 @@ import '../widgets/account_scroll_list_card.dart';
 import '../widgets/finance_section.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const id = '/';
+  // static const id = '/';
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Container(
               // color: Colors.white,
-              height: SizeConfig.screenHeight! * 0.85,
+              height: SizeConfig.screenHeight! * 0.9,
               child: SingleChildScrollView(
                 physics: const ScrollPhysics(),
                 child: Column(
@@ -137,14 +137,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           uContentSizedBoxH(),
                           uContentSizedBoxH(),
-                          TransactionSection()
+                          const TransactionSection(),
+                          uSafeAreaSizedBox,
+                          uSafeAreaSizedBox
+                          
                         ],
                       ),
                     )
                   ],
                 ),
               ),
-            )
+            ),
+            
           ],
         ),
       ),
