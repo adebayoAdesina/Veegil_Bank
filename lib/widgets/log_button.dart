@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/constant/colors.dart';
+import '../constant/colors.dart';
 
 class LogButton extends StatelessWidget {
   final Size size;

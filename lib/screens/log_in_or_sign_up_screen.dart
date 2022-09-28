@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/widgets/log_button.dart';
+import '../util/utils.dart';
+import '../widgets/log_button.dart';
 
 class LogInOrSignUpScreen extends StatelessWidget {
   static const id = '/';
@@ -10,7 +11,7 @@ class LogInOrSignUpScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(size.width * 0.05),
+        padding: uLogPadding(size),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,7 +21,7 @@ class LogInOrSignUpScreen extends StatelessWidget {
               text: 'Log in',
               onTap: () {},
             ),
-            const SizedBox(height: 25),
+            uLogSizedBoxH(),
             LogButton(
               size: size,
               text: 'Become a client of the bank',
