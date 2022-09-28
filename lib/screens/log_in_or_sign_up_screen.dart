@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simple_banking/screens/log_in_screen.dart';
+import 'package:simple_banking/screens/sign_up_screen.dart';
 import '../util/utils.dart';
 import '../widgets/log_button.dart';
 
@@ -19,16 +21,19 @@ class LogInOrSignUpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                uLogAppLogo(size.width * 0.55),
+                uLogSizedBoxH(),
+                uLogSizedBoxH(),
                 LogButton(
                   size: size,
                   text: 'Log in',
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(context, LogInScreen.id),
                 ),
                 uLogSizedBoxH(),
                 LogButton(
                   size: size,
                   text: 'Become a client of the bank',
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(context, SignUpScreen.id),
                   isMain: false,
                 ),
               ],

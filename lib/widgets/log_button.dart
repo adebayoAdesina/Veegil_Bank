@@ -38,6 +38,7 @@ class LogButton extends StatelessWidget {
             style: TextStyle(
               color: isMain ?  Theme.of(context).scaffoldBackgroundColor : Theme.of(context).colorScheme.onPrimary,
               fontSize: 21,
+              fontWeight: FontWeight.w500
             ),
             textAlign: TextAlign.center,
           ),

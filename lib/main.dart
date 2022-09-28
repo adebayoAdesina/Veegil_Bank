@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_banking/constant/colors.dart';
 import 'package:simple_banking/routes/route.dart';
 import 'package:simple_banking/screens/log_in_screen.dart';
+import 'package:simple_banking/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColor().kGrayOneColor,
           appBarTheme: AppBarTheme(backgroundColor: AppColor().kGrayOneColor)
       ),
-      initialRoute: LogInScreen.id,
+      initialRoute: SplashScreen.id,
       routes: routes,
     );
   }

@@ -24,7 +24,7 @@ class _LogInScreenState extends State<LogInScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: uLogAppLogo(size),
+        title: uLogAppLogo(size.width * 0.43),
         
       ),
       body: Padding(

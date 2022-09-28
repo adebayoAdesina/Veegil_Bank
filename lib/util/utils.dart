@@ -24,9 +24,9 @@ SizedBox uLogSizedBoxH() {
   );
 }
 
-  Image uLogAppLogo(Size size) {
+  Image uLogAppLogo(double size) {
     return Image.asset(
         'assets/logo/simpleBank.png',
-        width: size.width * 0.43,
+        width: size,
       );
   }

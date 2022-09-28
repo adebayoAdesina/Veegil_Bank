@@ -22,7 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: uLogAppLogo(size),
+        title: uLogAppLogo(size.width * 0.43),
         centerTitle: true,
       ),
       body: Center(
