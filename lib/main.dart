@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
             surface: AppColor().kGrayOneColor,
             onSurface: AppColor().kWhiteColor,
           ),
-          scaffoldBackgroundColor: AppColor().kGrayOneColor
+          scaffoldBackgroundColor: AppColor().kGrayOneColor,
+          appBarTheme: AppBarTheme(backgroundColor: AppColor().kGrayOneColor)
       ),
       initialRoute: LogInScreen.id,
       routes: routes,

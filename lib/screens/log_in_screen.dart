@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_banking/screens/sign_up_screen.dart';
 import '../util/utils.dart';
 import '../widgets/log_button.dart';
 import '../widgets/input_text_fied.dart';
@@ -21,6 +22,11 @@ class _LogInScreenState extends State<LogInScreen> {
     Size size = MediaQuery.of(context).size;
     SizeConfig().init(context);
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: uLogAppLogo(size),
+        
+      ),
       body: Padding(
         padding: uLogPadding(size),
         child: Column(
@@ -28,33 +34,34 @@ class _LogInScreenState extends State<LogInScreen> {
           children: [
             Form(
               key: formKey,
-                child: SingleChildScrollView(
-                  physics: const ScrollPhysics(),
-              child: Column(
-                children: [
-                  InputTextField(
-                    hintText: 'email',
-                    onSaved: (e) {},
-                    keyboard: TextInputType.emailAddress,
-                    icon: Icons.email,
-                  ),
-                  uLogSizedBoxH(),
-            InputTextField(
-              hintText: 'password',
-              onSaved: (e) {},
-              keyboard: TextInputType.text,
-              icon: Icons.password_rounded,
-            ),
-            uLogSizedBoxH(),
-            LogButton(
-              size: size,
-              text: 'Log in',
-              onTap: () {},
-            ),
-                ],
+              child: SingleChildScrollView(
+                physics: const ScrollPhysics(),
+                child: Column(
+                  children: [
+                    InputTextField(
+                      hintText: 'email',
+                      onSaved: (e) {},
+                      keyboard: TextInputType.emailAddress,
+                      icon: Icons.email,
+                    ),
+                    uLogSizedBoxH(),
+                    InputTextField(
+                      hintText: 'password',
+                      onSaved: (e) {},
+                      keyboard: TextInputType.text,
+                      icon: Icons.password_rounded,
+                      isObscure: true,
+                    ),
+                    uLogSizedBoxH(),
+                    LogButton(
+                      size: size,
+                      text: 'Log in',
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ),
-            )),
-            
+            ),
             uLogSizedBoxH(),
             Text(
               'Forget Password',
@@ -68,11 +75,16 @@ class _LogInScreenState extends State<LogInScreen> {
             SwitchUser(
               info: 'Don\'t have an account? ',
               switchUser: 'Sign up',
-              onTap: () {},
+              onTap: () => Navigator.pushReplacementNamed(
+                context,
+                SignUpScreen.id,
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
+
 }

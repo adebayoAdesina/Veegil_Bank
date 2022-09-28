@@ -27,7 +27,7 @@ class SwitchUser extends StatelessWidget {
             style: TextStyle(color: Theme.of(context).colorScheme.onPrimary,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),
           ),
           GestureDetector(
-            onTap: ()=> onTap(),
+            onTap: ()=>onTap(),
             child: Text(
               switchUser,
               style: TextStyle(color: Colors.blue,fontSize: SizeConfig.blockSizeHorizontal! * 3.5),

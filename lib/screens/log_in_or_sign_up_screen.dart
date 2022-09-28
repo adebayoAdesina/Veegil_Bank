@@ -10,25 +10,30 @@ class LogInOrSignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Padding(
-        padding: uLogPadding(size),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            LogButton(
-              size: size,
-              text: 'Log in',
-              onTap: () {},
+      body: Center(
+        child: SingleChildScrollView(
+          physics: const ScrollPhysics(),
+          child: Padding(
+            padding: uLogPadding(size),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                LogButton(
+                  size: size,
+                  text: 'Log in',
+                  onTap: () {},
+                ),
+                uLogSizedBoxH(),
+                LogButton(
+                  size: size,
+                  text: 'Become a client of the bank',
+                  onTap: () {},
+                  isMain: false,
+                ),
+              ],
             ),
-            uLogSizedBoxH(),
-            LogButton(
-              size: size,
-              text: 'Become a client of the bank',
-              onTap: () {},
-              isMain: false,
-            ),
-          ],
+          ),
         ),
       ),
     );
