@@ -14,6 +14,10 @@ class AppData with ChangeNotifier {
       ),
       AccountType(
         accountBalance: 0,
+        accountTitle: 'Salary',
+      ),
+      AccountType(
+        accountBalance: 0,
         accountTitle: 'Savings account',
       ),
       AccountType(

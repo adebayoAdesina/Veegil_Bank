@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/constant/colors.dart';
-import 'package:simple_banking/util/utils.dart';
+import '../util/utils.dart';
 
 class AccountScrollCard extends StatelessWidget {
   final String accountType;
   final double amount;
-  const AccountScrollCard(
-      {Key? key, required this.accountType, required this.amount})
-      : super(key: key);
+  final Color color;
+  const AccountScrollCard({
+    Key? key,
+    required this.accountType,
+    required this.amount,
+    required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
       width: 170,
-      margin: const EdgeInsets.only(right: 20),
+      margin: const EdgeInsets.only(left: 20),
       padding: const EdgeInsets.symmetric(
         vertical: 25,
         horizontal: 20,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: AppColor().kYellowColor,
+        color: color,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

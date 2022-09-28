@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/util/utils.dart';
+import '../util/utils.dart';
 
 import '../widgets/input_text_fied.dart';
 import '../widgets/log_button.dart';

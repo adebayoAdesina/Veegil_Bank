@@ -27,6 +27,11 @@ SizedBox uLogSizedBoxH() {
     height: 25,
   );
 }
+SizedBox uContentSizedBoxH() {
+  return const SizedBox(
+    height: 15,
+  );
+}
 
 Image uLogAppLogo(double size) {
   return Image.asset(
@@ -39,5 +44,7 @@ SizedBox uSafeAreaSizedBox = const SizedBox(
   height: 30,
 );
 
-EdgeInsets uHorizontalPadding = const EdgeInsets.symmetric(horizontal: 10);
-EdgeInsets uLeftPadding = const EdgeInsets.only(left: 10);
+EdgeInsets uHorizontalPadding = const EdgeInsets.symmetric(horizontal: 20);
+EdgeInsets uContentPadding = const EdgeInsets.only(top: 30,left: 20);
+EdgeInsets uRightContentPadding = const EdgeInsets.only(right: 20);
+
