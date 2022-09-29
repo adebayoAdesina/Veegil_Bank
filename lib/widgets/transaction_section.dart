@@ -53,6 +53,7 @@ class _TransactionSectionState extends State<TransactionSection> {
           ),
         ),
         ListView.builder(
+          primary: false,
           itemCount: 4,
           shrinkWrap: true,
           itemBuilder: (context, index) {

@@ -3,7 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_banking/constant/colors.dart';
 import 'package:simple_banking/provider/app_data.dart';
+import 'package:simple_banking/provider/auth_method.dart';
 import 'package:simple_banking/routes/route.dart';
+import 'package:simple_banking/screens/log_in_or_sign_up_screen.dart';
+import 'package:simple_banking/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,10 +22,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => AppData(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => AuthMethod(),
+        ),
       ],
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        systemNavigationBarColor: AppColor().kGrayThreeOpacityColor, 
+      value: const SystemUiOverlayStyle(
+        systemNavigationBarColor: Color(0XFF4D4B4F), 
         systemNavigationBarIconBrightness: Brightness.light,
       ),
         
@@ -47,7 +53,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: AppColor().kGrayOneColor,
             ),
           ),
-          initialRoute: '/',
+          initialRoute: SplashScreen.id,
           routes: routes,
         ),
       ),

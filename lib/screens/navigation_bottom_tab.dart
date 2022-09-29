@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_banking/constant/colors.dart';
 import 'package:simple_banking/screens/home_screen.dart';
+import 'package:simple_banking/screens/profile_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class NavigationBottomTab extends StatefulWidget {
@@ -17,7 +18,7 @@ class _NavigationBottomTabState extends State<NavigationBottomTab> {
   final List<dynamic> _pages = const [
     HomeScreen(),
     Scaffold(),
-    Scaffold(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,8 @@ class _NavigationBottomTabState extends State<NavigationBottomTab> {
           backgroundColor: AppColor().kGrayThreeOpacityColor,
           waterDropColor: Theme.of(context).colorScheme.primary,
           inactiveIconColor: Theme.of(context).colorScheme.onSecondary.withOpacity(0.5),
-          iconSize: 40,
-          bottomPadding: 20,
+          iconSize: 30,
+          bottomPadding: 10,
           barItems: [
             BarItem(
               filledIcon: Icons.home,

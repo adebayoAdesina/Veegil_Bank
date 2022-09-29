@@ -26,15 +26,15 @@ class InputTextField extends StatelessWidget {
         color: Theme.of(context).colorScheme.onPrimary,
         fontSize: SizeConfig.blockSizeHorizontal! * 5,
       ),
-      onSaved: (e) => onSaved,
+      onChanged: (e) => onSaved(e),
       obscureText: isObscure,
       validator: (value) {
-        if (value!.isEmpty ||
-            value.contains(' ') ||
-            value.contains('@') ||
-            value.contains('.')) {
-          return 'Invalid Username';
-        }
+        // if (value!.isEmpty ||
+        //     value.contains(' ') ||
+        //     value.contains('@') ||
+        //     value.contains('.')) {
+        //   return 'Invalid Username';
+        // }
       },
       decoration: InputDecoration(
         fillColor: AppColor().kGrayThreeColor.withOpacity(0.5),
