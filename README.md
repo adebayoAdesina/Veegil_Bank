@@ -1,16 +1,22 @@
-# simple_banking
+# simple_bank
 
-A new Flutter project.
+A bank app made Flutter + Firebase Realtime databse.
+It consist of POST and GET request.
 
-## Getting Started
+<h4 style="color: red">Note:-  auth.dart which contains the FLUTTER_APP_FIREBASE_URL is not pushed with this project in other to avoid firebase and github notifications that my key is not secured</h4>
 
-This project is a starting point for a Flutter application.
+## Getting Started With FireBase Set-up
+<hr>
+✍🏻 visit https://console.firebase.google.com/ to sign up or Log in to the Firebase console, then click Add project.
 
-A few resources to get you started if this is your first Flutter project:
+✍🏻 Select your existing Google Cloud project from the dropdown menu, then click Continue.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+✍🏻 (Optional) Enable Google Analytics for your project, then follow the prompts to select or create a Google Analytics account.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+✍🏻 Click Add Firebase.
+
+## Getting Started With Flutter
+<hr/>
+✍🏻 Clone the project.
+
+✍🏻 Open the project auths folder (project/lib/auths/) and add a new <b>auth.dart</b> file.
