@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/provider/sign_user.dart';
+import '../provider/sign_user.dart';
 import '../util/utils.dart';
 
 import '../widgets/input_text_fied.dart';

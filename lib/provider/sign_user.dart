@@ -3,9 +3,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:simple_banking/model/user.dart';
 import '../auths/auth.dart';
-import '../model/account_type.dart';
 
 class SignUser with ChangeNotifier {
   String? phoneNumber;

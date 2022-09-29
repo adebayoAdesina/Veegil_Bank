@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/widgets/transaction_section.dart';
+import '../widgets/transaction_section.dart';
 import '../constant/colors.dart';
 import '../provider/app_data.dart';
 import '../util/utils.dart';
@@ -18,8 +18,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = context.read<AppData>().user;
-    final userFunc = context.watch<AppData>();
+    final user = context.watch<AppData>().user;
+    final userFunc = context.read<AppData>();
     SizeConfig().init(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/provider/app_data.dart';
-import 'package:simple_banking/screens/home_screen.dart';
-import 'package:simple_banking/screens/navigation_bottom_tab.dart';
+import '../provider/app_data.dart';
+import '../screens/home_screen.dart';
+import '../screens/navigation_bottom_tab.dart';
 import '../provider/sign_user.dart';
 import '../screens/sign_up_screen.dart';
 import '../util/utils.dart';
@@ -66,7 +66,10 @@ class _LogInScreenState extends State<LogInScreen> {
       setState(() {
         _isLoading = false;
       });
-      // Navigator.pushReplacementNamed(context, NavigationBottomTab.id);
+      Navigator.pushReplacementNamed(
+        context,
+        NavigationBottomTab.id,
+      );
     } else {
       logDialog(response, context);
       setState(() {

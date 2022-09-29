@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/util/utils.dart';
+import '../util/utils.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

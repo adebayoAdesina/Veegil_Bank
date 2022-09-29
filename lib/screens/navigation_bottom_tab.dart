@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/constant/colors.dart';
-import 'package:simple_banking/screens/home_screen.dart';
-import 'package:simple_banking/screens/profile_screen.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
+import '../constant/colors.dart';
+import '../provider/app_data.dart';
+import '../screens/home_screen.dart';
+import '../screens/profile_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class NavigationBottomTab extends StatefulWidget {
@@ -14,6 +17,13 @@ class NavigationBottomTab extends StatefulWidget {
 
 class _NavigationBottomTabState extends State<NavigationBottomTab> {
   int _selectedIndex = 0;
+
+  bool _isLoading = true;
+  @override
+  void initState() {
+    // context.watch<AppData>().isLoading;
+    super.initState();
+  }
 
   final List<dynamic> _pages = const [
     HomeScreen(),

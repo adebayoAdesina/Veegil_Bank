@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/model/account_type.dart';
-import 'package:simple_banking/model/user.dart';
-import 'package:simple_banking/provider/sign_user.dart';
+import '../model/account_type.dart';
+import '../model/user.dart';
+import '../provider/sign_user.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../auths/auth.dart';
@@ -36,6 +36,10 @@ class AppData with ChangeNotifier {
 
   User get user {
     return _user;
+  }
+
+  bool get isLoading {
+    return _isLoad;
   }
 
   double getBalance() {
@@ -93,7 +97,11 @@ class AppData with ChangeNotifier {
         res = 'User not found';
       }
     } catch (e) {
-      res = e.toString();
+      if (e.toString().contains('Failed host lookup')) {
+        res = 'Please check your internet connection';
+      } else {
+        res = e.toString();
+      }
     }
 
     return res;
