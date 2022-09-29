@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:simple_banking/screens/sign_up_screen.dart';
 import '../util/utils.dart';
 import '../constant/colors.dart';
 
-class InputTextField extends StatelessWidget {
+class InputTextField extends StatefulWidget {
   final String hintText;
-  final ValueChanged onSaved;
+  final ValueChanged onChanged;
   final bool isObscure;
   final TextInputType keyboard;
   final IconData icon;
+  final SignUpInput userInputType;
   const InputTextField({
     Key? key,
     required this.hintText,
-    required this.onSaved,
+    required this.onChanged,
     this.isObscure = false,
     this.keyboard = TextInputType.text,
-    required this.icon,
+    required this.icon, required this.userInputType,
   }) : super(key: key);
 
   @override
+  State<InputTextField> createState() => _InputTextFieldState();
+}
+
+class _InputTextFieldState extends InputsFunction {
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    
     return TextFormField(
-      keyboardType: keyboard,
+      keyboardType: widget.keyboard,
       style: TextStyle(
         color: Theme.of(context).colorScheme.onPrimary,
         fontSize: SizeConfig.blockSizeHorizontal! * 5,
       ),
-      onChanged: (e) => onSaved(e),
-      obscureText: isObscure,
+      onChanged: (e) => widget.onChanged(e),
+      obscureText: widget.isObscure,
       validator: (value) {
         // if (value!.isEmpty ||
         //     value.contains(' ') ||
@@ -51,14 +59,14 @@ class InputTextField extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Icon(
-              icon,
+              widget.icon,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),
         contentPadding:
             const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        hintText: hintText,
+        hintText: widget.hintText,
         border: OutlineInputBorder(
           borderSide: BorderSide(
             color: AppColor().kGrayOneColor,
@@ -80,4 +88,9 @@ class InputTextField extends StatelessWidget {
       ),
     );
   }
+}
+
+
+abstract class InputsFunction extends State<InputTextField> {
+  String hello = 'hello';
 }

@@ -1,1 +1,1 @@
-const FLUTTER_APP_FIREBASE_KEY= 'AIzaSyBOERmDVJxFj0_OS-_A2ZIwAy-9d_W0z0I';
+const FLUTTER_APP_FIREBASE_URL= 'https://simplebank-73704-default-rtdb.firebaseio.com';

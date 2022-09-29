@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_banking/model/sign_user.dart';
 import '../provider/auth_method.dart';
 import '../util/utils.dart';
 
@@ -7,6 +8,12 @@ import '../widgets/input_text_fied.dart';
 import '../widgets/log_button.dart';
 import '../widgets/switch_user.dart';
 import 'log_in_screen.dart';
+
+enum SignUpInput {
+  phoneNumber,
+  password,
+  confirmPassword,
+}
 
 class SignUpScreen extends StatefulWidget {
   static const id = 'sign-up';
@@ -20,20 +27,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  late TextEditingController email;
-  late TextEditingController password;
+  String? phoneNumber;
+  String? password;
+  String? confirmPhoneNumber;
 
   @override
   void initState() {
-    email = TextEditingController();
-    password = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    email.dispose();
-    password.dispose();
     super.dispose();
   }
 
@@ -45,7 +49,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {
       _isLoading = true;
     });
-    await context.watch<AuthMethod>().signUp(email.text, password.text);
+    await context.read<SignUser>().signUp(
+          SignUser(
+            phoneNumber: phoneNumber,
+            password: password,
+          ),
+        );
   }
 
   @override
@@ -71,46 +80,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     physics: const ScrollPhysics(),
                     child: Column(
                       children: [
-                        InputTextField(
-                          hintText: 'name',
-                          onSaved: (e) {},
-                          keyboard: TextInputType.emailAddress,
-                          icon: Icons.person,
-                        ),
                         uLogSizedBoxH(),
                         InputTextField(
-                          hintText: 'email',
-                          onSaved: (e) {},
-                          keyboard: TextInputType.emailAddress,
-                          icon: Icons.email,
+                          hintText: 'phone number',
+                          onChanged: (e) => setState(() {
+                            phoneNumber = e;
+                          }),
+                          keyboard: TextInputType.number,
+                          icon: Icons.phone,
+                          userInputType: SignUpInput.phoneNumber,
                         ),
-                        uLogSizedBoxH(),
-                        InputTextField(
-                            hintText: 'phone number',
-                            onSaved: (e) {},
-                            keyboard: TextInputType.number,
-                            icon: Icons.phone),
                         uLogSizedBoxH(),
                         InputTextField(
                           hintText: 'password',
-                          onSaved: (e) {},
+                          onChanged: (e) => setState(() {
+                            password = e;
+                          }),
                           keyboard: TextInputType.text,
                           icon: Icons.password_rounded,
                           isObscure: true,
+                          userInputType: SignUpInput.password,
                         ),
                         uLogSizedBoxH(),
                         InputTextField(
                           hintText: 'confirm password',
-                          onSaved: (e) {},
+                          onChanged: (e) => setState(() {
+                            confirmPhoneNumber = e;
+                          }),
                           keyboard: TextInputType.text,
                           icon: Icons.password_rounded,
                           isObscure: true,
+                          userInputType: SignUpInput.confirmPassword,
                         ),
                         uLogSizedBoxH(),
                         LogButton(
                           size: size,
                           text: 'Sign Up',
-                          onTap: () {},
+                          onTap: () => _submit(),
                         ),
                       ],
                     ),

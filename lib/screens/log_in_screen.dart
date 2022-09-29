@@ -7,6 +7,11 @@ import '../widgets/log_button.dart';
 import '../widgets/input_text_fied.dart';
 import '../widgets/switch_user.dart';
 
+enum SignInInput {
+  phoneNumber,
+  password,
+}
+
 class LogInScreen extends StatefulWidget {
   static const id = 'log-in';
   const LogInScreen({Key? key}) : super(key: key);
@@ -36,9 +41,8 @@ class _LogInScreenState extends State<LogInScreen> {
     // password.dispose();
     super.dispose();
   }
-  
 
-  void _submit() async{
+  void _submit() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -46,7 +50,7 @@ class _LogInScreenState extends State<LogInScreen> {
     setState(() {
       _isLoading = true;
     });
-    await context.read<AuthMethod>().signUp(email!, password!);
+    // await context.read<AuthMethod>().signUp(email!, password!);
   }
 
   @override
@@ -57,7 +61,6 @@ class _LogInScreenState extends State<LogInScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: uLogAppLogo(size.width * 0.43),
-        
       ),
       body: Padding(
         padding: uLogPadding(size),
@@ -71,22 +74,24 @@ class _LogInScreenState extends State<LogInScreen> {
                 child: Column(
                   children: [
                     InputTextField(
-                      hintText: 'email',
-                      onSaved: (e) => setState(() {
+                      hintText: 'phone number',
+                      onChanged: (e) => setState(() {
                         email = e;
                       }),
-                      keyboard: TextInputType.emailAddress,
-                      icon: Icons.email,
+                      keyboard: TextInputType.number,
+                      icon: Icons.phone,
+                      userInputType: SignUpInput.phoneNumber,
                     ),
                     uLogSizedBoxH(),
                     InputTextField(
                       hintText: 'password',
-                      onSaved: (e) => setState(() {
+                      onChanged: (e) => setState(() {
                         password = e;
                       }),
                       keyboard: TextInputType.text,
                       icon: Icons.password_rounded,
                       isObscure: true,
+                      userInputType: SignUpInput.phoneNumber,
                     ),
                     uLogSizedBoxH(),
                     LogButton(
@@ -121,6 +126,4 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );
   }
-
-
 }
