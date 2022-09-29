@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_banking/provider/sign_user.dart';
-import '../provider/auth_method.dart';
 import '../util/utils.dart';
 
 import '../widgets/input_text_fied.dart';
@@ -57,7 +56,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         );
     if (response == 'success') {
-      print(response);
       setState(() {
         _isLoading = false;
       });
@@ -69,8 +67,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {

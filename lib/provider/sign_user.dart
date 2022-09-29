@@ -49,9 +49,9 @@ class SignUser with ChangeNotifier {
           String bankUrl =
               '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/account.json';
           Map<String, dynamic> _user = {
-            'name': 'Adebayo',
-            'email': 'ade@gmail.com',
-            'number': 08140615129,
+           
+            
+            'number': sign.phoneNumber,
             'accounts': [
               {
                 'accountBalance': 1000,
@@ -109,7 +109,9 @@ class SignUser with ChangeNotifier {
       else {
         res = 'Phone number Already exist';
       }
-    } catch (e) {}
+    } catch (e) {
+      res = e.toString();
+    }
 
     return res;
   }

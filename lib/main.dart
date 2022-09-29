@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:simple_banking/constant/colors.dart';
 import 'package:simple_banking/provider/sign_user.dart';
 import 'package:simple_banking/provider/app_data.dart';
-import 'package:simple_banking/provider/auth_method.dart';
 import 'package:simple_banking/routes/route.dart';
 import 'package:simple_banking/screens/log_in_or_sign_up_screen.dart';
 import 'package:simple_banking/screens/splash_screen.dart';
