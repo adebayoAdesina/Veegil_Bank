@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColor {
+class AppColor with ChangeNotifier{
   Color kGrayOneColor = Color(0XFF212121);
   Color kGrayTwoColor = Color(0XFF252525);
   Color kGrayThreeColor = Color(0XFF79767D);
@@ -23,4 +23,8 @@ class AppColor {
     Color(0XFFAA9EB7),
   ];
 
+  void changeColor () {
+    kGrayOneColor = Colors.white;
+    notifyListeners();
+  }
 }

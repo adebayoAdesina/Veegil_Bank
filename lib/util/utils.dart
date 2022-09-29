@@ -22,6 +22,7 @@ class SizeConfig {
 
 EdgeInsets uLogPadding(Size size) => EdgeInsets.all(size.width * 0.05);
 
+
 SizedBox uLogSizedBoxH() {
   return const SizedBox(
     height: 25,

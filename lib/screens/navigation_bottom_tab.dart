@@ -24,12 +24,16 @@ class _NavigationBottomTabState extends State<NavigationBottomTab> {
     // context.watch<AppData>().isLoading;
     super.initState();
   }
-
-  final List<dynamic> _pages = const [
+GestureDetector getGesture (context) {
+    return GestureDetector(onTap: (() => context.read<AppColor>().changeColor()));
+  }
+  final List<dynamic> _pages = [
     HomeScreen(),
     Scaffold(),
     ProfileScreen(),
   ];
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
