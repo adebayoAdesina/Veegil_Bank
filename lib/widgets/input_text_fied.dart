@@ -36,14 +36,14 @@ class _InputTextFieldState extends InputsFunction {
       ),
       onChanged: (e) => widget.onChanged(e),
       obscureText: widget.isObscure,
-      validator: (value) {
-        // if (value!.isEmpty ||
-        //     value.contains(' ') ||
-        //     value.contains('@') ||
-        //     value.contains('.')) {
-        //   return 'Invalid Username';
-        // }
-      },
+      // validator: (value) {
+      //   // if (value!.isEmpty ||
+      //   //     value.contains(' ') ||
+      //   //     value.contains('@') ||
+      //   //     value.contains('.')) {
+      //   //   return 'Invalid Username';
+      //   // }
+      // },
       decoration: InputDecoration(
         fillColor: AppColor().kGrayThreeColor.withOpacity(0.5),
         filled: true,

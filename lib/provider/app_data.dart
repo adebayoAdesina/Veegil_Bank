@@ -7,10 +7,12 @@ import 'package:http/http.dart' as http;
 import '../auths/auth.dart';
 
 class AppData with ChangeNotifier {
-  final User _user = User(
-    name: 'Adebayo',
-    email: 'ade"gmail.com',
-    number: 08140615129,
+  String id = '';
+  String bankId = '';
+  bool _isLoad = false;
+  // User _user = User();
+
+  User _user = User(
     accounts: [
       AccountType(
         accountBalance: 1000,
@@ -48,17 +50,51 @@ class AppData with ChangeNotifier {
 
   Future<String> getUser(SignUser sign) async {
     String res = 'User not found';
-    String logInUrl =
+
+    //URL + Request structures
+    // GET /auth/login/phoneNumber
+    String getIfLoggedInUrl =
         '$FLUTTER_APP_FIREBASE_URL/auth/login/${sign.phoneNumber}.json';
     try {
-      var response = await http.get(Uri.parse(logInUrl));
+      var response = await http.get(Uri.parse(getIfLoggedInUrl));
       Map<String, dynamic> data = jsonDecode(response.body);
       var getKey = data.keys.first;
       if (getKey.isNotEmpty) {
-        res = 'success';
-        print(getKey);
-      } 
-    } catch (e) {}
+        var details = data[getKey];
+        id = details['id'];
+        bankId = details['bankId'];
+
+        // GET / account/bank
+        String getUserUrl =
+            '$FLUTTER_APP_FIREBASE_URL/users/$id/account/$bankId.json';
+
+        try {
+          var getUserResponse = await http.get(Uri.parse(getUserUrl));
+          var getUserDetail = jsonDecode(getUserResponse.body);
+          print(getUserDetail);
+          _user = User(
+            number: getUserDetail['number'],
+            password: getUserDetail['password'],
+            accounts: (getUserDetail['accounts'] as List<dynamic>)
+                .map((e) => AccountType(
+                      accountBalance: (e['accountBalance'] as double),
+                      accountTitle: e['accountTitle'],
+                    ))
+                .toList(),
+          );
+          _isLoad = true;
+          print(_user.accounts);
+          res = 'success';
+          notifyListeners();
+        } catch (e) {
+          res = e.toString();
+        }
+      } else {
+        res = 'User not found';
+      }
+    } catch (e) {
+      res = e.toString();
+    }
 
     return res;
   }

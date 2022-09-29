@@ -2,7 +2,7 @@ import 'package:simple_banking/model/account_type.dart';
 import 'package:simple_banking/model/sent_money.dart';
 
 class User {
-  int? number;
+  String? number;
   String? password;
   List<AccountType>? accounts;
   List<SentMoney>? sents;

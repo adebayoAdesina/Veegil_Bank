@@ -54,23 +54,23 @@ class SignUser with ChangeNotifier {
             'number': sign.phoneNumber,
             'accounts': [
               {
-                'accountBalance': 1000,
+                'accountBalance': 2000.0,
                 'accountTitle': 'Bonuses',
               },
               {
-                'accountBalance': 0,
+                'accountBalance': 0.0,
                 'accountTitle': 'Salary',
               },
               {
-                'accountBalance': 0,
+                'accountBalance': 0.0,
                 'accountTitle': 'Savings account',
               },
               {
-                'accountBalance': 0,
+                'accountBalance': 0.0,
                 'accountTitle': 'Fixed account',
               },
             ],
-            'password': 'james',
+            'password': sign.password,
           };
           final userResponse = await http.post(
             Uri.parse(bankUrl),
