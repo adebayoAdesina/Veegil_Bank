@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_banking/screens/transfer_screen.dart';
 import '../constant/colors.dart';
 import '../provider/app_data.dart';
 import '../screens/home_screen.dart';
@@ -18,18 +19,14 @@ class NavigationBottomTab extends StatefulWidget {
 class _NavigationBottomTabState extends State<NavigationBottomTab> {
   int _selectedIndex = 0;
 
-  bool _isLoading = true;
   @override
-  void initState() {
-    // context.watch<AppData>().isLoading;
-    super.initState();
-  }
+
 GestureDetector getGesture (context) {
     return GestureDetector(onTap: (() => context.read<AppColor>().changeColor()));
   }
-  final List<dynamic> _pages = [
+  final List<dynamic> _pages = const [
     HomeScreen(),
-    Scaffold(),
+    TransferScreen(),
     ProfileScreen(),
   ];
 

@@ -7,9 +7,11 @@ import '../widgets/profile_list_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
+    String _url =
+        'https://img.freepik.com/free-vector/hand-holding-phone-with-digital-wallet-service-sending-money-payment-transaction-transfer-through-mobile-app-flat-illustration_74855-20589.jpg?w=1060&t=st=1664491980~exp=1664492580~hmac=e73ef0d2b7f2da44a7f5d9d288511f0f6a5fa9d6ab11af9f3881ab88ae416c1a';
     SizeConfig().init(context);
     return Scaffold(
       body: Padding(
@@ -41,20 +43,25 @@ class ProfileScreen extends StatelessWidget {
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.blueAccent,
+                // color: Colors.blueAccent,
                 borderRadius: BorderRadius.circular(30),
               ),
-              // child: CachedNetworkImage(imageUrl: ),
-            ),
-            uLogSizedBoxH(),
-            GestureDetector(
-              onTap: (() => context.read<AppColor>().changeColor()),
-              child: Container(
-                height: 30,
-                width: 30,
-                color: Colors.red,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Opacity(
+                  opacity: 0.8,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    imageUrl: _url,
+                  ),
+                ),
               ),
             ),
+            uLogSizedBoxH(),
+            uLogSizedBoxH(),
             ListView.builder(
               itemCount: 2,
               shrinkWrap: true,
@@ -69,5 +76,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-
-
