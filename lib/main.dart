@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_banking/constant/colors.dart';
-import 'package:simple_banking/model/sign_user.dart';
+import 'package:simple_banking/provider/sign_user.dart';
 import 'package:simple_banking/provider/app_data.dart';
 import 'package:simple_banking/provider/auth_method.dart';
 import 'package:simple_banking/routes/route.dart';

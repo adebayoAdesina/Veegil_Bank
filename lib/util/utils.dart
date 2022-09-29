@@ -48,3 +48,13 @@ EdgeInsets uHorizontalPadding = const EdgeInsets.symmetric(horizontal: 20);
 EdgeInsets uContentPadding = const EdgeInsets.only(top: 30,left: 20);
 EdgeInsets uRightContentPadding = const EdgeInsets.only(right: 20);
 
+
+Future<dynamic> logDialog(String response, BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Text(response, textAlign: TextAlign.center,),
+      ),
+    );
+  }
+
