@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_banking/screens/navigation_bottom_tab.dart';
 import 'package:simple_banking/widgets/log_button.dart';
+import 'package:simple_banking/widgets/transaction_alert.dart';
 
 import '../constant/colors.dart';
 import '../util/utils.dart';
@@ -15,7 +19,6 @@ class TransferScreen extends StatefulWidget {
 }
 
 class _TransferScreenState extends State<TransferScreen> {
-
   bool _changed = false;
   @override
   Widget build(BuildContext context) {
@@ -65,37 +68,82 @@ class _TransferScreenState extends State<TransferScreen> {
                   uLogSizedBoxH(),
                   Form(
                     child: SingleChildScrollView(
-                      child: _changed == false? Column(
-                        children: [
-                          transferInput(
-                              context, 'Account number', (e) {}, false),
-                          transferInput(context, 'Amount', (e) {}, false),
-                          transferInput(context, 'Description', (e) {}, false),
-                          uLogSizedBoxH(),
-                          LogButton(size: size, text: 'Procced', onTap: () {
-                            setState(() {
-                              _changed = !_changed;
-                            });
-                          })
-                        ],
-                      ): Column(
-                        children: [
-                          transferInput(
-                              context, 'Password', (e) {}, false),
-                          
-                          uLogSizedBoxH(),
-                          LogButton(size: size, text: 'Transfer', onTap: () {
-                            
-                          }),
-                          uLogSizedBoxH(),
-                          LogButton(size: size, text: 'Cancel', isMain: false ,onTap: () {
-                            setState(() {
-                              _changed = !_changed;
-                            });
-                          })
-                          
-                        ],
-                      ),
+                      child: _changed == false
+                          ? Column(
+                              children: [
+                                transferInput(
+                                    context, 'Account number', (e) {}, false),
+                                transferInput(context, 'Amount', (e) {}, false),
+                                transferInput(
+                                    context, 'Description', (e) {}, false),
+                                uLogSizedBoxH(),
+                                LogButton(
+                                    size: size,
+                                    text: 'Procced',
+                                    onTap: () {
+                                      setState(() {
+                                        _changed = !_changed;
+                                      });
+                                    })
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                transferInput(
+                                    context, 'Password', (e) {}, false),
+                                uLogSizedBoxH(),
+                                LogButton(
+                                    size: size,
+                                    text: 'Transfer',
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              TransactionAlert(
+                                                  title: 'Are you sure?',
+                                                  subTitle:
+                                                      'Click yes to proceed transaction',
+                                                  noFunction: () =>
+                                                      Navigator.pop(context),
+                                                  yesFunction: () {
+                                                    Navigator
+                                                        .pushReplacementNamed(
+                                                      context,
+                                                      NavigationBottomTab.id,
+                                                    );
+                                                    setState(() {
+                                                      _changed = !_changed;
+                                                    });
+                                                  }));
+                                    }),
+                                uLogSizedBoxH(),
+                                LogButton(
+                                    size: size,
+                                    text: 'Cancel',
+                                    isMain: false,
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              TransactionAlert(
+                                                  title: 'Are you sure?',
+                                                  subTitle:
+                                                      'Click yes to cancel transaction',
+                                                  noFunction: () =>
+                                                      Navigator.pop(context),
+                                                  yesFunction: () {
+                                                    Navigator
+                                                        .pushReplacementNamed(
+                                                      context,
+                                                      NavigationBottomTab.id,
+                                                    );
+                                                    setState(() {
+                                                      _changed = !_changed;
+                                                    });
+                                                  }));
+                                    })
+                              ],
+                            ),
                     ),
                   ),
                 ],

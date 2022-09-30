@@ -49,8 +49,8 @@ GestureDetector getGesture (context) {
               outlinedIcon: Icons.home_outlined,
             ),
             BarItem(
-              filledIcon: Icons.color_lens,
-              outlinedIcon: Icons.color_lens_outlined,
+              filledIcon: Icons.multiple_stop,
+              outlinedIcon: Icons.swap_vert_rounded,
             ),
             BarItem(
               filledIcon: Icons.person,
