@@ -146,9 +146,5 @@ class AppData with ChangeNotifier {
     return res;
   }
 
-  Future<String> transfer() async {
-    String res = 'Failed';
-    // String
-    return res;
-  }
+  
 }

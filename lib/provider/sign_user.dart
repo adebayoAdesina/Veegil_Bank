@@ -83,6 +83,7 @@ class SignUser with ChangeNotifier {
               'phoneNumber': '',
               'amount': 0.0,
               'description': '',
+              'isSent' : false,
             },
           ];
           final transferResponse = await http.post(
@@ -99,6 +100,7 @@ class SignUser with ChangeNotifier {
               'phoneNumber': '',
               'amount': 0.0,
               'description': '',
+              'isSent' : false,
             }
           ];
           final withdrawResponse = await http.post(
@@ -138,3 +140,7 @@ class SignUser with ChangeNotifier {
     return res;
   }
 }
+
+
+//  07035554425
+//  08140615129

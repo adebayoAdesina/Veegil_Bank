@@ -2,11 +2,14 @@ import 'dart:ffi';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_banking/provider/transfer_provider.dart';
 import 'package:simple_banking/screens/navigation_bottom_tab.dart';
 import 'package:simple_banking/widgets/log_button.dart';
 import 'package:simple_banking/widgets/transaction_alert.dart';
 
 import '../constant/colors.dart';
+import '../provider/app_data.dart';
 import '../util/utils.dart';
 
 // https://giphy.com/embed/rx8Bp7bOYUiTv4NEWA
@@ -20,8 +23,14 @@ class TransferScreen extends StatefulWidget {
 
 class _TransferScreenState extends State<TransferScreen> {
   bool _changed = false;
+  String phoneNumber = '';
+  double amount = 0;
+  String description = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AppData>();
+    final _transfer = context.read<TransferProvider>();
     SizeConfig().init(context);
     Size size = MediaQuery.of(context).size;
     String _url =
@@ -71,11 +80,21 @@ class _TransferScreenState extends State<TransferScreen> {
                       child: _changed == false
                           ? Column(
                               children: [
-                                transferInput(
-                                    context, 'Account number', (e) {}, false),
-                                transferInput(context, 'Amount', (e) {}, false),
-                                transferInput(
-                                    context, 'Description', (e) {}, false),
+                                transferInput(context, 'Account number', (e) {
+                                  setState(() {
+                                    phoneNumber = e;
+                                  });
+                                }, false),
+                                transferInput(context, 'Amount', (e) {
+                                  setState(() {
+                                    amount = double.parse(e);
+                                  });
+                                }, false),
+                                transferInput(context, 'Description', (e) {
+                                  setState(() {
+                                    description = e;
+                                  });
+                                }, false),
                                 uLogSizedBoxH(),
                                 LogButton(
                                     size: size,
@@ -89,33 +108,56 @@ class _TransferScreenState extends State<TransferScreen> {
                             )
                           : Column(
                               children: [
-                                transferInput(
-                                    context, 'Password', (e) {}, false),
+                                transferInput(context, 'Password', (e) {
+                                  setState(() {
+                                    password = e;
+                                  });
+                                }, true),
                                 uLogSizedBoxH(),
                                 LogButton(
-                                    size: size,
-                                    text: 'Transfer',
-                                    onTap: () {
+                                  size: size,
+                                  text: 'Transfer',
+                                  onTap: () {
+                                    if (user.user.number != phoneNumber || user.user.password == password) {
                                       showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              TransactionAlert(
-                                                  title: 'Are you sure?',
-                                                  subTitle:
-                                                      'Click yes to proceed transaction',
-                                                  noFunction: () =>
-                                                      Navigator.pop(context),
-                                                  yesFunction: () {
-                                                    Navigator
-                                                        .pushReplacementNamed(
-                                                      context,
-                                                      NavigationBottomTab.id,
-                                                    );
-                                                    setState(() {
-                                                      _changed = !_changed;
-                                                    });
-                                                  }));
-                                    }),
+                                        context: context,
+                                        builder: (context) => TransactionAlert(
+                                          title: 'Are you sure?',
+                                          subTitle:
+                                              'Click yes to proceed transaction',
+                                          noFunction: () =>
+                                              Navigator.pop(context),
+                                          yesFunction: () async {
+                                            if (amount != 0 ||
+                                                password != '' ||
+                                                description != '') {
+                                              var response =
+                                                  await _transfer.transfer(
+                                                user.id,
+                                                user.transferId,
+                                                phoneNumber,
+                                                amount,
+                                                description,
+                                              );
+                                              if (response == 'success') {
+                                                Navigator.pushReplacementNamed(
+                                                  context,
+                                                  NavigationBottomTab.id,
+                                                );
+                                              }
+                                            }
+                                          },
+                                        ),
+                                      );
+                                    }
+                                    else if ( user.user.number == phoneNumber){
+                                      logDialog('You cant transfer to your account', context);
+                                    }
+                                    else if ( user.user.password != password){
+                                      logDialog('Wrong Password', context);
+                                    }
+                                  },
+                                ),
                                 uLogSizedBoxH(),
                                 LogButton(
                                     size: size,
@@ -164,7 +206,7 @@ class _TransferScreenState extends State<TransferScreen> {
           color: Theme.of(context).colorScheme.onPrimary,
           fontSize: SizeConfig.blockSizeHorizontal! * 5,
         ),
-
+        onChanged: (e) => onChanged(e),
         // validator: (value) {
         //   // if (value!.isEmpty ||
         //   //     value.contains(' ') ||
