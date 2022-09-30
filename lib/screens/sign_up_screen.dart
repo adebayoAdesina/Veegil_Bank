@@ -74,78 +74,81 @@ class _SignUpScreenState extends State<SignUpScreen> {
     SizeConfig().init(context);
     return ModalProgressHUD(
       inAsyncCall: _isLoading,
-      child: Scaffold(
-        appBar: AppBar(
-          title: uLogAppLogo(size.width * 0.43),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: SingleChildScrollView(
-            physics: const ScrollPhysics(),
-            child: Padding(
-              padding: uLogPadding(size),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Form(
-                    key: formKey,
-                    child: SingleChildScrollView(
-                      physics: const ScrollPhysics(),
-                      child: Column(
-                        children: [
-                          uLogSizedBoxH(),
-                          InputTextField(
-                            hintText: 'phone number',
-                            onChanged: (e) => setState(() {
-                              phoneNumber = e;
-                            }),
-                            keyboard: TextInputType.number,
-                            icon: Icons.phone,
-                            userInputType: SignUpInput.phoneNumber,
-                          ),
-                          uLogSizedBoxH(),
-                          InputTextField(
-                            hintText: 'password',
-                            onChanged: (e) => setState(() {
-                              password = e;
-                            }),
-                            keyboard: TextInputType.text,
-                            icon: Icons.password_rounded,
-                            isObscure: true,
-                            userInputType: SignUpInput.password,
-                          ),
-                          uLogSizedBoxH(),
-                          InputTextField(
-                            hintText: 'confirm password',
-                            onChanged: (e) => setState(() {
-                              confirmPhoneNumber = e;
-                            }),
-                            keyboard: TextInputType.text,
-                            icon: Icons.password_rounded,
-                            isObscure: true,
-                            userInputType: SignUpInput.confirmPassword,
-                          ),
-                          uLogSizedBoxH(),
-                          LogButton(
-                            size: size,
-                            text: 'Sign Up',
-                            onTap: () => _submit(),
-                          ),
-                        ],
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: uLogAppLogo(size.width * 0.43),
+            centerTitle: true,
+          ),
+          body: Center(
+            child: SingleChildScrollView(
+              physics: const ScrollPhysics(),
+              child: Padding(
+                padding: uLogPadding(size),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Form(
+                      key: formKey,
+                      child: SingleChildScrollView(
+                        physics: const ScrollPhysics(),
+                        child: Column(
+                          children: [
+                            uLogSizedBoxH(),
+                            InputTextField(
+                              hintText: 'phone number',
+                              onChanged: (e) => setState(() {
+                                phoneNumber = e;
+                              }),
+                              keyboard: TextInputType.number,
+                              icon: Icons.phone,
+                              userInputType: SignUpInput.phoneNumber,
+                            ),
+                            uLogSizedBoxH(),
+                            InputTextField(
+                              hintText: 'password',
+                              onChanged: (e) => setState(() {
+                                password = e;
+                              }),
+                              keyboard: TextInputType.text,
+                              icon: Icons.password_rounded,
+                              isObscure: true,
+                              userInputType: SignUpInput.password,
+                            ),
+                            uLogSizedBoxH(),
+                            InputTextField(
+                              hintText: 'confirm password',
+                              onChanged: (e) => setState(() {
+                                confirmPhoneNumber = e;
+                              }),
+                              keyboard: TextInputType.text,
+                              icon: Icons.password_rounded,
+                              isObscure: true,
+                              userInputType: SignUpInput.confirmPassword,
+                            ),
+                            uLogSizedBoxH(),
+                            LogButton(
+                              size: size,
+                              text: 'Sign Up',
+                              onTap: () => _submit(),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  uLogSizedBoxH(),
-                  uLogSizedBoxH(),
-                  SwitchUser(
-                    info: 'Alread have an account? ',
-                    switchUser: 'Log in',
-                    onTap: () => Navigator.pushReplacementNamed(
-                      context,
-                      LogInScreen.id,
+                    uLogSizedBoxH(),
+                    uLogSizedBoxH(),
+                    SwitchUser(
+                      info: 'Alread have an account? ',
+                      switchUser: 'Log in',
+                      onTap: () => Navigator.pushReplacementNamed(
+                        context,
+                        LogInScreen.id,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
