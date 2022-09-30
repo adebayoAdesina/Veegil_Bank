@@ -13,6 +13,8 @@ class AppData with ChangeNotifier {
   // User _user = User();
 
   User _user = User(
+    number: '',
+    password: '',
     accounts: [
       AccountType(
         accountBalance: 1000,
@@ -31,7 +33,7 @@ class AppData with ChangeNotifier {
         accountTitle: 'Fixed account',
       ),
     ],
-    password: 'james',
+    sents: []
   );
 
   User get user {
@@ -99,11 +101,17 @@ class AppData with ChangeNotifier {
     } catch (e) {
       if (e.toString().contains('Failed host lookup')) {
         res = 'Please check your internet connection';
-      } else {
-        res = e.toString();
+      } else if(e.toString().contains('Receiver: null')){
+        res = 'User not found';
       }
     }
 
+    return res;
+  }
+
+  Future<String> transfer () async {
+    String res = 'Failed';
+    // String 
     return res;
   }
 }

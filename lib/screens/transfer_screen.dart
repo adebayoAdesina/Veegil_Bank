@@ -5,6 +5,8 @@ import 'package:simple_banking/widgets/log_button.dart';
 import '../constant/colors.dart';
 import '../util/utils.dart';
 
+// https://giphy.com/embed/rx8Bp7bOYUiTv4NEWA
+
 class TransferScreen extends StatefulWidget {
   const TransferScreen({Key? key}) : super(key: key);
 
@@ -91,6 +93,7 @@ class _TransferScreenState extends State<TransferScreen> {
                               _changed = !_changed;
                             });
                           })
+                          
                         ],
                       ),
                     ),

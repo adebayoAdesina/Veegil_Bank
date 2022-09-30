@@ -47,9 +47,8 @@ class SignUser with ChangeNotifier {
           String bankUrl =
               '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/account.json';
           Map<String, dynamic> _user = {
-           
-            
             'number': sign.phoneNumber,
+            'password': sign.password,
             'accounts': [
               {
                 'accountBalance': 2000.0,
@@ -68,7 +67,6 @@ class SignUser with ChangeNotifier {
                 'accountTitle': 'Fixed account',
               },
             ],
-            'password': sign.password,
           };
           final userResponse = await http.post(
             Uri.parse(bankUrl),
@@ -77,12 +75,37 @@ class SignUser with ChangeNotifier {
             ),
           );
 
-          // // Post / accounts/transfer
-          // String transferUrl =
-          //     '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/transfer.json';
-          // Map<String, dynamic> _transfer = {
-          //   'phoneNumber' :
-          // };
+          // Post / accounts/transfer
+          String transferUrl =
+              '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/transfer.json';
+          List<Map<String, dynamic>> _transfer = [
+            {
+              'phoneNumber': '',
+              'amount': 0.0,
+              'description': '',
+            },
+          ];
+          final transferResponse = await http.post(
+            Uri.parse(transferUrl),
+            body: jsonEncode(_transfer),
+          );
+          final transferValue = jsonDecode(transferResponse.body);
+
+          // Post / accounts/withdraw
+          String withdrawUrl =
+              '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/withdraw.json';
+          List<Map<String, dynamic>> _withdraw = [
+            {
+              'phoneNumber': '',
+              'amount': 0.0,
+              'description': '',
+            }
+          ];
+          final withdrawResponse = await http.post(
+            Uri.parse(withdrawUrl),
+            body: jsonEncode(_withdraw),
+          );
+          final withdrawValue = jsonDecode(withdrawResponse.body);
 
           // Post / auth / login
           Map<dynamic, dynamic> bankValue = jsonDecode(userResponse.body);
@@ -94,6 +117,8 @@ class SignUser with ChangeNotifier {
                 'password': sign.password,
                 'id': value['name'],
                 'bankId': bankValue['name'],
+                'transferId': transferValue['name'],
+                'withdrawId': withdrawValue['name'],
               },
             ),
           );
@@ -103,8 +128,7 @@ class SignUser with ChangeNotifier {
         } catch (e) {
           print(e.toString());
         }
-      }
-      else {
+      } else {
         res = 'Phone number Already exist';
       }
     } catch (e) {
