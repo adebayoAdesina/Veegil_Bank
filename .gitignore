@@ -32,7 +32,7 @@
 /build/
 
 # Auth related
-lib/auths/auth.dart
+lib/auths/
 
 # Web related
 lib/generated_plugin_registrant.dart

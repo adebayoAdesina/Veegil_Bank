@@ -1,16 +1,18 @@
 import 'package:simple_banking/model/account_type.dart';
-import 'package:simple_banking/model/sent_money.dart';
+import 'package:simple_banking/model/transfer.dart';
 
 class User {
   String? number;
   String? password;
   List<AccountType>? accounts;
-  List<SentMoney>? sents;
+  List<Transfer>? sents;
+  List<Transfer>? received;
 
   User({
     this.number,
     this.password,
     this.accounts,
     this.sents,
+    this.received,
   });
 }

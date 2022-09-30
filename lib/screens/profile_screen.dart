@@ -2,14 +2,26 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_banking/constant/colors.dart';
+import 'package:simple_banking/provider/app_data.dart';
 import '../util/utils.dart';
 import '../widgets/profile_list_card.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final List _profileCards = [
+    'Profile',
+    'Log Out',
+  ];
+
+  @override
   Widget build(BuildContext context) {
+    final user = context.watch<AppData>().user;
     String _url =
         'https://img.freepik.com/free-vector/hand-holding-phone-with-digital-wallet-service-sending-money-payment-transaction-transfer-through-mobile-app-flat-illustration_74855-20589.jpg?w=1060&t=st=1664491980~exp=1664492580~hmac=e73ef0d2b7f2da44a7f5d9d288511f0f6a5fa9d6ab11af9f3881ab88ae416c1a';
     SizeConfig().init(context);
@@ -30,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Text(
-              '08018118817',
+              user.number.toString(),
               style: TextStyle(
                 fontSize: SizeConfig.blockSizeHorizontal! * 4.5,
                 fontWeight: FontWeight.w600,
@@ -67,7 +79,10 @@ class ProfileScreen extends StatelessWidget {
               shrinkWrap: true,
               primary: false,
               itemBuilder: (context, index) {
-                return const ProfileListCard();
+                return ProfileListCard(
+                  text: _profileCards[index],
+                  isLogOut: index == 1 ? true : false,
+                );
               },
             )
           ],

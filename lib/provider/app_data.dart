@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_banking/model/transfer.dart';
 import '../model/account_type.dart';
 import '../model/user.dart';
 import '../provider/sign_user.dart';
@@ -9,6 +10,8 @@ import '../auths/auth.dart';
 class AppData with ChangeNotifier {
   String id = '';
   String bankId = '';
+  String transferId = '';
+  String withdrawId = '';
   bool _isLoad = false;
   // User _user = User();
 
@@ -33,7 +36,8 @@ class AppData with ChangeNotifier {
         accountTitle: 'Fixed account',
       ),
     ],
-    sents: []
+    sents: [],
+    received: [],
   );
 
   User get user {
@@ -55,7 +59,7 @@ class AppData with ChangeNotifier {
   }
 
   Future<String> getUser(SignUser sign) async {
-    String res = 'User not found';
+    String res = 'Please check your internet connection';
 
     //URL + Request structures
     // GET /auth/login/phoneNumber
@@ -69,15 +73,29 @@ class AppData with ChangeNotifier {
         var details = data[getKey];
         id = details['id'];
         bankId = details['bankId'];
+        withdrawId = details['withdrawId'];
+        transferId = details['transferId'];
 
         // GET / account/bank
         String getUserUrl =
             '$FLUTTER_APP_FIREBASE_URL/users/$id/account/$bankId.json';
+        // GET / account/withdraw
+        String getUserWithdrawUrl =
+            '$FLUTTER_APP_FIREBASE_URL/users/$id/withdraw/$withdrawId.json';
+        // GET / account/transfer
+        String getUserTransferUrl =
+            '$FLUTTER_APP_FIREBASE_URL/users/$id/transfer/$transferId.json';
 
         try {
           var getUserResponse = await http.get(Uri.parse(getUserUrl));
           var getUserDetail = jsonDecode(getUserResponse.body);
-          print(getUserDetail);
+          var getUserWithdrawResponse =
+              await http.get(Uri.parse(getUserWithdrawUrl));
+          var getUserWithdrawDetail = jsonDecode(getUserWithdrawResponse.body);
+          var getUserTransferResponse =
+              await http.get(Uri.parse(getUserTransferUrl));
+          var getUserTransferDetail = jsonDecode(getUserTransferResponse.body);
+
           _user = User(
             number: getUserDetail['number'],
             password: getUserDetail['password'],
@@ -87,9 +105,27 @@ class AppData with ChangeNotifier {
                       accountTitle: e['accountTitle'],
                     ))
                 .toList(),
+            sents: (getUserWithdrawDetail as List<dynamic>)
+                .map(
+                  (e) => Transfer(
+                    amount: e['amount'],
+                    description: e['description'],
+                    phoneNumber: e['phoneNumber'],
+                  ),
+                )
+                .toList(),
+            received: (getUserTransferDetail as List<dynamic>)
+                .map(
+                  (e) => Transfer(
+                    amount: e['amount'],
+                    description: e['description'],
+                    phoneNumber: e['phoneNumber'],
+                  ),
+                )
+                .toList(),
           );
           _isLoad = true;
-          print(_user.accounts);
+
           res = 'success';
           notifyListeners();
         } catch (e) {
@@ -101,17 +137,18 @@ class AppData with ChangeNotifier {
     } catch (e) {
       if (e.toString().contains('Failed host lookup')) {
         res = 'Please check your internet connection';
-      } else if(e.toString().contains('Receiver: null')){
+      } else if (e.toString().contains('Receiver: null')) {
         res = 'User not found';
       }
+      notifyListeners();
     }
 
     return res;
   }
 
-  Future<String> transfer () async {
+  Future<String> transfer() async {
     String res = 'Failed';
-    // String 
+    // String
     return res;
   }
 }
