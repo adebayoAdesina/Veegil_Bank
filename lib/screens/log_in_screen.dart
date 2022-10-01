@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_banking/extension/extension.dart';
 import '../provider/app_data.dart';
 import '../screens/navigation_bottom_tab.dart';
 import '../provider/sign_user.dart';
@@ -33,20 +34,20 @@ class _LogInScreenState extends State<LogInScreen> {
 
   @override
   void initState() {
-    // phoneNumber = TextEditingController();
-    // password = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    // phoneNumber.dispose();
-    // password.dispose();
     super.dispose();
   }
 
   void _submit() async {
     if (!formKey.currentState!.validate()) {
+      setState(() {
+        phoneNumber = null;
+        password = null;
+      });
       return;
     }
     formKey.currentState!.save();
@@ -109,6 +110,11 @@ class _LogInScreenState extends State<LogInScreen> {
                           keyboard: TextInputType.number,
                           icon: Icons.phone,
                           userInputType: SignUpInput.phoneNumber,
+                          validate: (value) {
+                            if (!value.isValidPhone) {
+                              return 'Enter valid Phone Number';
+                            }
+                          },
                         ),
                         uLogSizedBoxH(),
                         InputTextField(
@@ -116,6 +122,11 @@ class _LogInScreenState extends State<LogInScreen> {
                           onChanged: (e) => setState(() {
                             password = e;
                           }),
+                          validate: (value) {
+                            if (!value.isValidPassword) {
+                              return 'Enter valid Password';
+                            }
+                          },
                           keyboard: TextInputType.text,
                           icon: Icons.password_rounded,
                           isObscure: true,

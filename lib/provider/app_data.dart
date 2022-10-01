@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import '../auths/auth.dart';
 
 class AppData with ChangeNotifier {
+  String currentUserPhoneNumber = '';
   String id = '';
   String bankId = '';
   String transferId = '';
@@ -75,6 +76,7 @@ class AppData with ChangeNotifier {
         bankId = details['bankId'];
         withdrawId = details['withdrawId'];
         transferId = details['transferId'];
+        currentUserPhoneNumber = sign.phoneNumber.toString();
 
         // GET / account/bank
         String getUserUrl =
@@ -94,35 +96,50 @@ class AppData with ChangeNotifier {
           var getUserWithdrawDetail = jsonDecode(getUserWithdrawResponse.body);
           var getUserTransferResponse =
               await http.get(Uri.parse(getUserTransferUrl));
-          var getUserTransferDetail = jsonDecode(getUserTransferResponse.body);
+          Map<String, dynamic> getUserTransferDetail =
+              jsonDecode(getUserTransferResponse.body);
+          List<dynamic> transactionList = [];
+          for (var element in getUserTransferDetail.keys) {
+            var getsTransfers = getUserTransferDetail[element];
+            // transactionList.add(Transfer(
+            //   amount: getsTransfers['amount'],
+            //   description: getsTransfers['description'],
+            //   isSent: getsTransfers['isSent'],
+            //   phoneNumber: getsTransfers['phoneNumber'],
+            // ));
+            transactionList.add(getsTransfers);
+          }
+          print(transactionList);
 
           _user = User(
             number: getUserDetail['number'],
             password: getUserDetail['password'],
-            accounts: (getUserDetail['accounts'] as List<dynamic>)
-                .map((e) => AccountType(
-                      accountBalance: (e['accountBalance'] as double),
-                      accountTitle: e['accountTitle'],
-                    ))
-                .toList(),
-            sents: (getUserWithdrawDetail as List<dynamic>)
-                .map(
-                  (e) => Transfer(
+            accounts: (getUserDetail['accounts']) != null
+                ? (getUserDetail['accounts'])
+                    .map((e) => AccountType(
+                          accountBalance: (e['accountBalance'] as double),
+                          accountTitle: e['accountTitle'],
+                        ))
+                    .toList()
+                : [],
+            // sents: (getUserWithdrawDetail != null)
+            //     ? (getUserWithdrawDetail)
+            //         .map(
+            //           (e) => Transfer(
+            //             amount: e['amount'],
+            //             description: e['description'],
+            //             phoneNumber: e['phoneNumber'],
+            //           ),
+            //         )
+            //         .toList()
+            //     : [],
+            received: (transactionList as List<dynamic>).map(
+              (e) => Transfer(
                     amount: e['amount'],
                     description: e['description'],
                     phoneNumber: e['phoneNumber'],
                   ),
-                )
-                .toList(),
-            received: (getUserTransferDetail as List<dynamic>)
-                .map(
-                  (e) => Transfer(
-                    amount: e['amount'],
-                    description: e['description'],
-                    phoneNumber: e['phoneNumber'],
-                  ),
-                )
-                .toList(),
+            ).toList(),
           );
           _isLoad = true;
 
@@ -145,6 +162,4 @@ class AppData with ChangeNotifier {
 
     return res;
   }
-
-  
 }

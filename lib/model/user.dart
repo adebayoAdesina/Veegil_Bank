@@ -7,6 +7,7 @@ class User {
   List<AccountType>? accounts;
   List<Transfer>? sents;
   List<Transfer>? received;
+  // Transfer? transfer;
 
   User({
     this.number,
@@ -14,5 +15,6 @@ class User {
     this.accounts,
     this.sents,
     this.received,
+    // this.transfer,
   });
 }

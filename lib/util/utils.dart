@@ -54,7 +54,21 @@ Future<dynamic> logDialog(String response, BuildContext context) {
     return showDialog(
       context: context,
       builder: (context) => Dialog(
-        child: Text(response, textAlign: TextAlign.center,),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 150,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error_outline_rounded, color: Colors.red, size: 60,),
+                  Text(response, style: TextStyle(fontSize: 20) , textAlign: TextAlign.center,),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

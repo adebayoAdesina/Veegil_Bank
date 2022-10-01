@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_banking/extension/extension.dart';
 import '../provider/sign_user.dart';
 import '../util/utils.dart';
 
@@ -43,6 +44,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Future<void> _submit() async {
     if (!formKey.currentState!.validate()) {
+      setState(() {
+        phoneNumber = null;
+        password = null;
+        confirmPhoneNumber = null;
+      });
       return;
     }
     formKey.currentState!.save();
@@ -101,6 +107,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (e) => setState(() {
                                 phoneNumber = e;
                               }),
+                               validate: (value) {
+                                 if (!value.isValidPhone) {
+                              return 'Enter valid Phone Number';
+                            }
+                               },
                               keyboard: TextInputType.number,
                               icon: Icons.phone,
                               userInputType: SignUpInput.phoneNumber,
@@ -111,6 +122,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (e) => setState(() {
                                 password = e;
                               }),
+                               validate: (value) {
+                                 if (!value.isValidPhone) {
+                              return 'Password shoulb be more than 8';
+                            }
+                               },
                               keyboard: TextInputType.text,
                               icon: Icons.password_rounded,
                               isObscure: true,
@@ -118,6 +134,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             uLogSizedBoxH(),
                             InputTextField(
+                               validate: (value) {
+                                 if (password != confirmPhoneNumber) {
+                                   return 'Password not match';
+                                 }
+                               },
                               hintText: 'confirm password',
                               onChanged: (e) => setState(() {
                                 confirmPhoneNumber = e;

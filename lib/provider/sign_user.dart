@@ -78,14 +78,7 @@ class SignUser with ChangeNotifier {
           // Post / accounts/transfer
           String transferUrl =
               '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/transfer.json';
-          List<Map<String, dynamic>> _transfer = [
-            {
-              'phoneNumber': '',
-              'amount': 0.0,
-              'description': '',
-              'isSent' : false,
-            },
-          ];
+          List<Map<String, dynamic>> _transfer = [];
           final transferResponse = await http.post(
             Uri.parse(transferUrl),
             body: jsonEncode(_transfer),
@@ -95,14 +88,7 @@ class SignUser with ChangeNotifier {
           // Post / accounts/withdraw
           String withdrawUrl =
               '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/withdraw.json';
-          List<Map<String, dynamic>> _withdraw = [
-            {
-              'phoneNumber': '',
-              'amount': 0.0,
-              'description': '',
-              'isSent' : false,
-            }
-          ];
+          List<Map<String, dynamic>> _withdraw = [];
           final withdrawResponse = await http.post(
             Uri.parse(withdrawUrl),
             body: jsonEncode(_withdraw),

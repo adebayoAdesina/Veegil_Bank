@@ -10,13 +10,14 @@ class InputTextField extends StatefulWidget {
   final TextInputType keyboard;
   final IconData icon;
   final SignUpInput userInputType;
+  final Function(String) validate;
   const InputTextField({
     Key? key,
     required this.hintText,
     required this.onChanged,
     this.isObscure = false,
     this.keyboard = TextInputType.text,
-    required this.icon, required this.userInputType,
+    required this.icon, required this.userInputType, required this.validate,
   }) : super(key: key);
 
   @override
@@ -36,14 +37,7 @@ class _InputTextFieldState extends InputsFunction {
       ),
       onChanged: (e) => widget.onChanged(e),
       obscureText: widget.isObscure,
-      // validator: (value) {
-      //   // if (value!.isEmpty ||
-      //   //     value.contains(' ') ||
-      //   //     value.contains('@') ||
-      //   //     value.contains('.')) {
-      //   //   return 'Invalid Username';
-      //   // }
-      // },
+      validator: (value)=>widget.validate(value!),
       decoration: InputDecoration(
         fillColor: AppColor().kGrayThreeColor.withOpacity(0.5),
         filled: true,

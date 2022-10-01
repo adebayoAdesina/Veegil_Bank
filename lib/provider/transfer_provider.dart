@@ -80,69 +80,78 @@ class TransferProvider with ChangeNotifier {
           // Patch request to update sent user
           var updateUserTransfer = await http.patch(
             Uri.parse(getAndUpdateUserTransferUrl),
-            body: jsonEncode({
-              'number': user.number,
-              'password': user.password,
-              'accounts': [
-                {
-                  'accountBalance': _userBonusesAccount.accountBalance,
-                  'accountTitle': _userBonusesAccount.accountTitle,
-                },
-                {
-                  'accountBalance': _userSalaryAccount.accountBalance,
-                  'accountTitle': _userSalaryAccount.accountTitle,
-                },
-                {
-                  'accountBalance':
-                      _userSavingsAccount.accountBalance! - amount,
-                  'accountTitle': _userSavingsAccount.accountTitle,
-                },
-                {
-                  'accountBalance': _userFixedAccount.accountBalance,
-                  'accountTitle': _userFixedAccount.accountTitle,
-                },
-              ],
-            }),
+            body: jsonEncode(
+              {
+                'number': user.number,
+                'password': user.password,
+                'accounts': [
+                  {
+                    'accountBalance': _userBonusesAccount.accountBalance,
+                    'accountTitle': _userBonusesAccount.accountTitle,
+                  },
+                  {
+                    'accountBalance': _userSalaryAccount.accountBalance,
+                    'accountTitle': _userSalaryAccount.accountTitle,
+                  },
+                  {
+                    'accountBalance':
+                        _userSavingsAccount.accountBalance! - amount,
+                    'accountTitle': _userSavingsAccount.accountTitle,
+                  },
+                  {
+                    'accountBalance': _userFixedAccount.accountBalance,
+                    'accountTitle': _userFixedAccount.accountTitle,
+                  },
+                ],
+              },
+            ),
           );
 
           // Patch request to update transfer user
           var getUpdateToTransferredUserTransfer = await http.get(
             Uri.parse(getWhereUserTransferUrl),
           );
-          var getUpdateToTransferredUserData = jsonDecode(getUpdateToTransferredUserTransfer.body);
-          
-          var updateToTransferredUserTransfer =
-              await http.patch(Uri.parse(getWhereUserTransferUrl),
-                  body: jsonEncode({
-                    'number': getUpdateToTransferredUserData['number'],
-                    'password': getUpdateToTransferredUserData['password'],
-                    'accounts': [
-                      {
-                        'accountBalance': getUpdateToTransferredUserData['accounts'][0]['accountBalance'],
-                        'accountTitle': getUpdateToTransferredUserData['accounts'][0]['accountTitle'],
-                      },
-                      {
-                        'accountBalance': getUpdateToTransferredUserData['accounts'][1]['accountBalance'],
-                        'accountTitle': getUpdateToTransferredUserData['accounts'][1]['accountTitle'],
-                      },
-                      {
-                        'accountBalance':
-                            getUpdateToTransferredUserData['accounts'][2]['accountBalance'] + amount,
-                        'accountTitle': getUpdateToTransferredUserData['accounts'][2]['accountTitle'],
-                      },
-                      {
-                        'accountBalance': getUpdateToTransferredUserData['accounts'][3]['accountBalance'],
-                        'accountTitle': getUpdateToTransferredUserData['accounts'][3]['accountTitle'],
-                      },
-                    ],
-                  }));
-          print(updateToTransferredUserTransfer.body);
+          var getUpdateToTransferredUserData =
+              jsonDecode(getUpdateToTransferredUserTransfer.body);
+
+          var updateToTransferredUserTransfer = await http.patch(
+            Uri.parse(getWhereUserTransferUrl),
+            body: jsonEncode(
+              {
+                'number': getUpdateToTransferredUserData['number'],
+                'password': getUpdateToTransferredUserData['password'],
+                'accounts': [
+                  {
+                    'accountBalance': getUpdateToTransferredUserData['accounts']
+                        [0]['accountBalance'],
+                    'accountTitle': getUpdateToTransferredUserData['accounts']
+                        [0]['accountTitle'],
+                  },
+                  {
+                    'accountBalance': getUpdateToTransferredUserData['accounts']
+                        [1]['accountBalance'],
+                    'accountTitle': getUpdateToTransferredUserData['accounts']
+                        [1]['accountTitle'],
+                  },
+                  {
+                    'accountBalance': getUpdateToTransferredUserData['accounts']
+                            [2]['accountBalance'] +
+                        amount,
+                    'accountTitle': getUpdateToTransferredUserData['accounts']
+                        [2]['accountTitle'],
+                  },
+                  {
+                    'accountBalance': getUpdateToTransferredUserData['accounts']
+                        [3]['accountBalance'],
+                    'accountTitle': getUpdateToTransferredUserData['accounts']
+                        [3]['accountTitle'],
+                  },
+                ],
+              },
+            ),
+          );
         } catch (e) {}
       }
-
-      // var response = http.post(
-      //   Uri.parse(postUserTransferUrl),
-      // );
     } catch (e) {}
 
     return res;
