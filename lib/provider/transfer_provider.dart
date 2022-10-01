@@ -150,6 +150,7 @@ class TransferProvider with ChangeNotifier {
               },
             ),
           );
+          res = 'success';
         } catch (e) {}
       }
     } catch (e) {}

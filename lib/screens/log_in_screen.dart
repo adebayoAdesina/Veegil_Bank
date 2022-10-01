@@ -60,7 +60,6 @@ class _LogInScreenState extends State<LogInScreen> {
             password: password,
           ),
         );
-    print(response);
     if (response == 'success') {
       print(response);
       setState(() {

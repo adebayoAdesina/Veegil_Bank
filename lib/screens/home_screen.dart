@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final userFunc = context.read<AppData>();
     SizeConfig().init(context);
     Size size = MediaQuery.of(context).size;
+    // print(user.received);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_banking/constant/colors.dart';
 
+import '../provider/app_data.dart';
 import '../util/utils.dart';
 import 'transaction_tile.dart';
 
@@ -15,6 +17,7 @@ class _TransactionSectionState extends State<TransactionSection> {
   int _currentState = 0;
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AppData>().user;
     return Column(
       children: [
         Row(
@@ -54,13 +57,19 @@ class _TransactionSectionState extends State<TransactionSection> {
         ),
         ListView.builder(
           primary: false,
-          itemCount: 4,
+          itemCount: user.received!.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            if (index != 0) {
-              return TransactionTile();
-            }
-            return const SizedBox.shrink();
+            
+              var transfers = user.received![index];
+              // print(transfers);
+              return TransactionTile(
+                amount: transfers.amount!.toStringAsFixed(0),
+                transferTo: transfers.phoneNumber.toString(),
+                isSend: transfers.isSent!,
+                
+              );
+           
           },
         )
       ],
@@ -105,4 +114,3 @@ class _TransactionSectionState extends State<TransactionSection> {
     );
   }
 }
-

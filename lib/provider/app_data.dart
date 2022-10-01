@@ -119,8 +119,8 @@ class AppData with ChangeNotifier {
             // ));
             // getUserDetailList.add(getsTransfers);
           }
-          print(getUserDetailList);
-          print(transactionList);
+          // print(getUserDetailList);
+          // print(transactionList);
 // print(getUser)
           _user = User(
             number: getUserDetail['number'],

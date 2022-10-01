@@ -1,8 +1,10 @@
-import 'dart:ffi';
+import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_banking/provider/sign_user.dart';
 import 'package:simple_banking/provider/transfer_provider.dart';
 import 'package:simple_banking/screens/navigation_bottom_tab.dart';
 import 'package:simple_banking/widgets/log_button.dart';
@@ -25,6 +27,7 @@ class _TransferScreenState extends State<TransferScreen> {
   double amount = 0;
   String description = '';
   String password = '';
+  bool _isLoad = false;
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AppData>();
@@ -47,183 +50,204 @@ class _TransferScreenState extends State<TransferScreen> {
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: const ScrollPhysics(),
-            child: Padding(
-              padding: uHorizontalPadding,
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      // color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Opacity(
-                        opacity: 0.8,
-                        child: CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: _url,
-                          errorWidget: (context, url, error) => const Center(
-                            child: CircularProgressIndicator(),
+        body: ModalProgressHUD(
+          inAsyncCall: _isLoad,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              physics: const ScrollPhysics(),
+              child: Padding(
+                padding: uHorizontalPadding,
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        // color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Opacity(
+                          opacity: 0.8,
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: _url,
+                            errorWidget: (context, url, error) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  uLogSizedBoxH(),
-                  Form(
-                    child: SingleChildScrollView(
-                      child: _changed == false
-                          ? Column(
-                              children: [
-                                transferInput(context, 'Account number', (e) {
-                                  setState(() {
-                                    phoneNumber = e;
-                                  });
-                                }, false),
-                                transferInput(context, 'Amount', (e) {
-                                  setState(() {
-                                    amount = double.parse(e);
-                                  });
-                                }, false),
-                                transferInput(context, 'Description', (e) {
-                                  setState(() {
-                                    description = e;
-                                  });
-                                }, false),
-                                uLogSizedBoxH(),
-                                LogButton(
+                    uLogSizedBoxH(),
+                    Form(
+                      child: SingleChildScrollView(
+                        child: _changed == false
+                            ? Column(
+                                children: [
+                                  transferInput(context, 'Account number', (e) {
+                                    setState(() {
+                                      phoneNumber = e;
+                                    });
+                                  }, false),
+                                  transferInput(context, 'Amount', (e) {
+                                    setState(() {
+                                      amount = double.parse(e);
+                                    });
+                                  }, false),
+                                  transferInput(context, 'Description', (e) {
+                                    setState(() {
+                                      description = e;
+                                    });
+                                  }, false),
+                                  uLogSizedBoxH(),
+                                  LogButton(
+                                      size: size,
+                                      text: 'Proceed',
+                                      onTap: () {
+                                        if (userSalary.accountBalance! >=
+                                            amount) {
+                                          setState(() {
+                                            _changed = !_changed;
+                                          });
+                                        } else {
+                                          logDialog(
+                                            'Your cant transfer more than your ${userSalary.accountBalance}',
+                                            context,
+                                          );
+                                        }
+                                      })
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  transferInput(context, 'Password', (e) {
+                                    setState(() {
+                                      password = e;
+                                    });
+                                  }, true),
+                                  uLogSizedBoxH(),
+                                  LogButton(
                                     size: size,
-                                    text: 'Proceed',
+                                    text: 'Transfer',
                                     onTap: () {
-                                      if (userSalary.accountBalance! >=
-                                          amount) {
-                                        setState(() {
-                                          _changed = !_changed;
-                                        });
-                                      } else {
-                                        logDialog(
-                                          'Your cant transfer more than your ${userSalary.accountBalance}',
-                                          context,
-                                        );
-                                      }
-                                    })
-                              ],
-                            )
-                          : Column(
-                              children: [
-                                transferInput(context, 'Password', (e) {
-                                  setState(() {
-                                    password = e;
-                                  });
-                                }, true),
-                                uLogSizedBoxH(),
-                                LogButton(
-                                  size: size,
-                                  text: 'Transfer',
-                                  onTap: () {
-                                    if (user.user.number != phoneNumber ||
-                                        user.user.password == password) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => TransactionAlert(
-                                          title: 'Are you sure?',
-                                          subTitle:
-                                              'Click yes to proceed transaction',
-                                          noFunction: () =>
-                                              Navigator.pop(context),
-                                          yesFunction: () async {
-                                            if (amount != 0 ||
-                                                password != '' ||
-                                                description != '') {
-                                              var response =
-                                                  await _transfer.transfer(
-                                                user.id,
-                                                user.transferId,
-                                                phoneNumber,
-                                                amount,
-                                                description,
-                                                user.bankId,
-                                                user.user,
-                                                
-                                              );
-                                              if (response == 'success') {
-                                                Navigator.pop(context);
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        Dialog(
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            errorWidget: (context,
-                                                                    url,
-                                                                    error) =>
-                                                                const Center(
-                                                              child:
-                                                                  CircularProgressIndicator(),
-                                                            ),
-                                                            imageUrl:
-                                                                'https://giphy.com/embed/rx8Bp7bOYUiTv4NEWA',
-                                                            width: SizeConfig
-                                                                    .blockSizeHorizontal! *
-                                                                5,
-                                                          ),
-                                                        ));
-                                                Navigator.pushReplacementNamed(
-                                                  context,
-                                                  NavigationBottomTab.id,
-                                                );
-                                              }
-                                            }
-                                          },
-                                        ),
-                                      );
-                                    } else if (user.user.number ==
-                                        phoneNumber) {
-                                      logDialog(
-                                          'You cant transfer to your account',
-                                          context);
-                                    } else if (user.user.password != password) {
-                                      logDialog('Wrong Password', context);
-                                    }
-                                  },
-                                ),
-                                uLogSizedBoxH(),
-                                LogButton(
-                                    size: size,
-                                    text: 'Cancel',
-                                    isMain: false,
-                                    onTap: () {
-                                      showDialog(
+                                      if (user.user.number != phoneNumber ||
+                                          user.user.password == password) {
+                                        showDialog(
                                           context: context,
                                           builder: (context) =>
                                               TransactionAlert(
-                                                  title: 'Are you sure?',
-                                                  subTitle:
-                                                      'Click yes to cancel transaction',
-                                                  noFunction: () =>
-                                                      Navigator.pop(context),
-                                                  yesFunction: () {
-                                                    Navigator
-                                                        .pushReplacementNamed(
-                                                      context,
-                                                      NavigationBottomTab.id,
-                                                    );
-                                                    setState(() {
-                                                      _changed = !_changed;
-                                                    });
-                                                  }));
-                                    })
-                              ],
-                            ),
+                                            title: 'Are you sure?',
+                                            subTitle:
+                                                'Click yes to proceed transaction',
+                                            noFunction: () =>
+                                                Navigator.pop(context),
+                                            yesFunction: () async {
+                                              if (amount != 0 ||
+                                                  password != '' ||
+                                                  description != '') {
+                                                // Navigator.pop(context);
+                                                setState(() {
+                                                  _isLoad = true;
+                                                });
+                                                var response =
+                                                    await _transfer.transfer(
+                                                  user.id,
+                                                  user.transferId,
+                                                  phoneNumber,
+                                                  amount,
+                                                  description,
+                                                  user.bankId,
+                                                  user.user,
+                                                );
+                                                setState(() {
+                                                  _isLoad = false;
+                                                });
+
+                                                if (response == 'success') {
+                                                  context
+                                                      .read<AppData>()
+                                                      .getUser(
+                                                        SignUser(
+                                                          phoneNumber: user
+                                                              .currentUserPhoneNumber,
+                                                        ),
+                                                      );
+
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                    context,
+                                                    NavigationBottomTab.id,
+                                                  );
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        Dialog(
+                                                      child: CachedNetworkImage(
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            const Center(
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        ),
+                                                        // 07035554425
+                                                        imageUrl:
+                                                            'https://giphy.com/embed/rx8Bp7bOYUiTv4NEWA',
+                                                        width: SizeConfig
+                                                                .blockSizeHorizontal! *
+                                                            5,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                              }
+                                            },
+                                          ),
+                                        );
+                                      } else if (user.user.number ==
+                                          phoneNumber) {
+                                        logDialog(
+                                            'You cant transfer to your account',
+                                            context);
+                                      } else if (user.user.password !=
+                                          password) {
+                                        logDialog('Wrong Password', context);
+                                      }
+                                    },
+                                  ),
+                                  uLogSizedBoxH(),
+                                  LogButton(
+                                      size: size,
+                                      text: 'Cancel',
+                                      isMain: false,
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                TransactionAlert(
+                                                    title: 'Are you sure?',
+                                                    subTitle:
+                                                        'Click yes to cancel transaction',
+                                                    noFunction: () =>
+                                                        Navigator.pop(context),
+                                                    yesFunction: () {
+                                                      Navigator
+                                                          .pushReplacementNamed(
+                                                        context,
+                                                        NavigationBottomTab.id,
+                                                      );
+                                                      setState(() {
+                                                        _changed = !_changed;
+                                                      });
+                                                    }));
+                                      })
+                                ],
+                              ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -3,49 +3,55 @@ import 'package:flutter/material.dart';
 import '../util/utils.dart';
 
 class TransactionTile extends StatelessWidget {
+  final String transferTo;
+  final String amount;
+  final bool isSend;
   const TransactionTile({
     Key? key,
+    required this.transferTo,
+    required this.amount,
+    required this.isSend,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(
-        radius: 20,
-        backgroundColor: Colors.red,
-        child: Icon(
-          Icons.upload_rounded,
-          size: 30,
-        ),
-      ),
+      leading: isSend == true
+          ? const CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.red,
+              child: Icon(
+                Icons.upload_rounded,
+                size: 30,
+              ),
+            )
+          : const CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.green,
+              child: Icon(
+                Icons.download_rounded,
+                size: 30,
+              ),
+            ),
       title: Text(
-        'Transfer to 09090909090',
+        isSend == true ? 'Transfer to $transferTo' : 'Received by $transferTo',
         style: TextStyle(
-          color: Theme.of(context)
-              .colorScheme
-              .onPrimary
-              .withOpacity(0.70),
+          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.70),
           fontSize: SizeConfig.subHeadingFontSize,
         ),
       ),
       subtitle: Text(
         'Date:',
         style: TextStyle(
-          color: Theme.of(context)
-              .colorScheme
-              .onPrimary
-              .withOpacity(0.45),
+          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.45),
           fontSize: SizeConfig.subHeadingFontSize,
         ),
       ),
       trailing: Text(
-        '-1000',
+        isSend == true ? '-₦$amount' : '+₦$amount',
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: Theme.of(context)
-              .colorScheme
-              .onPrimary
-              .withOpacity(0.6),
+          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.6),
           fontSize: SizeConfig.subHeadingFontSize,
         ),
       ),
