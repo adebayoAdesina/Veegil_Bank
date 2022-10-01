@@ -123,9 +123,9 @@ class _LogInScreenState extends State<LogInScreen> {
                             password = e;
                           }),
                           validate: (value) {
-                            if (!value.isValidPassword) {
-                              return 'Enter valid Password';
-                            }
+                            // if (!value.isValidPassword) {
+                            //   return 'Enter valid Password';
+                            // }
                           },
                           keyboard: TextInputType.text,
                           icon: Icons.password_rounded,

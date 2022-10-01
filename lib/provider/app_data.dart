@@ -98,29 +98,35 @@ class AppData with ChangeNotifier {
               await http.get(Uri.parse(getUserTransferUrl));
           Map<String, dynamic> getUserTransferDetail =
               jsonDecode(getUserTransferResponse.body);
-          List<dynamic> transactionList = [];
+          List<Transfer> transactionList = [];
+          List<AccountType> getUserDetailList = [];
           for (var element in getUserTransferDetail.keys) {
             var getsTransfers = getUserTransferDetail[element];
-            // transactionList.add(Transfer(
-            //   amount: getsTransfers['amount'],
-            //   description: getsTransfers['description'],
-            //   isSent: getsTransfers['isSent'],
-            //   phoneNumber: getsTransfers['phoneNumber'],
-            // ));
-            transactionList.add(getsTransfers);
+            transactionList.add(Transfer(
+              amount: getsTransfers['amount'],
+              description: getsTransfers['description'],
+              isSent: getsTransfers['isSent'],
+              phoneNumber: getsTransfers['phoneNumber'],
+            ));
+            // transactionList.add(getsTransfers);
           }
+          for (var element in getUserDetail['accounts']) {
+            var getsTransfers = element;
+            getUserDetailList.add(AccountType(
+              accountBalance: (getsTransfers['accountBalance'] as double),
+              accountTitle: getsTransfers['accountTitle'],
+            ));
+            // ));
+            // getUserDetailList.add(getsTransfers);
+          }
+          print(getUserDetailList);
           print(transactionList);
-
+// print(getUser)
           _user = User(
             number: getUserDetail['number'],
             password: getUserDetail['password'],
             accounts: (getUserDetail['accounts']) != null
-                ? (getUserDetail['accounts'])
-                    .map((e) => AccountType(
-                          accountBalance: (e['accountBalance'] as double),
-                          accountTitle: e['accountTitle'],
-                        ))
-                    .toList()
+                ? getUserDetailList
                 : [],
             // sents: (getUserWithdrawDetail != null)
             //     ? (getUserWithdrawDetail)
@@ -133,13 +139,8 @@ class AppData with ChangeNotifier {
             //         )
             //         .toList()
             //     : [],
-            received: (transactionList as List<dynamic>).map(
-              (e) => Transfer(
-                    amount: e['amount'],
-                    description: e['description'],
-                    phoneNumber: e['phoneNumber'],
-                  ),
-            ).toList(),
+            received: transactionList != null ? transactionList : []
+                
           );
           _isLoad = true;
 
