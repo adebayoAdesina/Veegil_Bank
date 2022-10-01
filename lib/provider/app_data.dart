@@ -20,7 +20,7 @@ class AppData with ChangeNotifier {
     password: '',
     accounts: [
       AccountType(
-        accountBalance: 1000,
+        accountBalance: 0,
         accountTitle: 'Bonuses',
       ),
       AccountType(

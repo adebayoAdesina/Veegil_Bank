@@ -12,8 +12,6 @@ import '../constant/colors.dart';
 import '../provider/app_data.dart';
 import '../util/utils.dart';
 
-// https://giphy.com/embed/rx8Bp7bOYUiTv4NEWA
-
 class TransferScreen extends StatefulWidget {
   const TransferScreen({Key? key}) : super(key: key);
 
@@ -30,6 +28,9 @@ class _TransferScreenState extends State<TransferScreen> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AppData>();
+    final userSalary = user.user.accounts!
+        .firstWhere((element) => element.accountTitle == 'Savings account');
+
     final _transfer = context.read<TransferProvider>();
     SizeConfig().init(context);
     Size size = MediaQuery.of(context).size;
@@ -98,11 +99,19 @@ class _TransferScreenState extends State<TransferScreen> {
                                 uLogSizedBoxH(),
                                 LogButton(
                                     size: size,
-                                    text: 'Procced',
+                                    text: 'Proceed',
                                     onTap: () {
-                                      setState(() {
-                                        _changed = !_changed;
-                                      });
+                                      if (userSalary.accountBalance! >=
+                                          amount) {
+                                        setState(() {
+                                          _changed = !_changed;
+                                        });
+                                      } else {
+                                        logDialog(
+                                          'Your cant transfer more than your ${userSalary.accountBalance}',
+                                          context,
+                                        );
+                                      }
                                     })
                               ],
                             )
@@ -118,7 +127,8 @@ class _TransferScreenState extends State<TransferScreen> {
                                   size: size,
                                   text: 'Transfer',
                                   onTap: () {
-                                    if (user.user.number != phoneNumber || user.user.password == password) {
+                                    if (user.user.number != phoneNumber ||
+                                        user.user.password == password) {
                                       showDialog(
                                         context: context,
                                         builder: (context) => TransactionAlert(
@@ -138,8 +148,32 @@ class _TransferScreenState extends State<TransferScreen> {
                                                 phoneNumber,
                                                 amount,
                                                 description,
+                                                user.bankId,
+                                                user.user,
+                                                
                                               );
                                               if (response == 'success') {
+                                                Navigator.pop(context);
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        Dialog(
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            errorWidget: (context,
+                                                                    url,
+                                                                    error) =>
+                                                                const Center(
+                                                              child:
+                                                                  CircularProgressIndicator(),
+                                                            ),
+                                                            imageUrl:
+                                                                'https://giphy.com/embed/rx8Bp7bOYUiTv4NEWA',
+                                                            width: SizeConfig
+                                                                    .blockSizeHorizontal! *
+                                                                5,
+                                                          ),
+                                                        ));
                                                 Navigator.pushReplacementNamed(
                                                   context,
                                                   NavigationBottomTab.id,
@@ -149,11 +183,12 @@ class _TransferScreenState extends State<TransferScreen> {
                                           },
                                         ),
                                       );
-                                    }
-                                    else if ( user.user.number == phoneNumber){
-                                      logDialog('You cant transfer to your account', context);
-                                    }
-                                    else if ( user.user.password != password){
+                                    } else if (user.user.number ==
+                                        phoneNumber) {
+                                      logDialog(
+                                          'You cant transfer to your account',
+                                          context);
+                                    } else if (user.user.password != password) {
                                       logDialog('Wrong Password', context);
                                     }
                                   },

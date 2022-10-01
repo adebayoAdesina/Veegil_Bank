@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import '../provider/app_data.dart';
-import '../screens/home_screen.dart';
 import '../screens/navigation_bottom_tab.dart';
 import '../provider/sign_user.dart';
 import '../screens/sign_up_screen.dart';

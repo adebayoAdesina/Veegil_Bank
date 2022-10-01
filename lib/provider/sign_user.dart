@@ -51,7 +51,7 @@ class SignUser with ChangeNotifier {
             'password': sign.password,
             'accounts': [
               {
-                'accountBalance': 2000.0,
+                'accountBalance': 0.0,
                 'accountTitle': 'Bonuses',
               },
               {
@@ -59,7 +59,7 @@ class SignUser with ChangeNotifier {
                 'accountTitle': 'Salary',
               },
               {
-                'accountBalance': 0.0,
+                'accountBalance': 2000.0,
                 'accountTitle': 'Savings account',
               },
               {
