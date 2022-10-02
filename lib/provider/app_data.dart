@@ -14,6 +14,9 @@ class AppData with ChangeNotifier {
   String transferId = '';
   String withdrawId = '';
   bool _isLoad = false;
+  List<Transfer> allTransfer = [];
+  List<Transfer> allRecieved = [];
+
   // User _user = User();
 
   User _user = User(
@@ -62,6 +65,8 @@ class AppData with ChangeNotifier {
   Future<String> getUser(SignUser sign) async {
     String res = 'Please check your internet connection';
 
+    allRecieved = [];
+    allTransfer = [];
     //URL + Request structures
     // GET /auth/login/phoneNumber
     String getIfLoggedInUrl =
@@ -100,19 +105,39 @@ class AppData with ChangeNotifier {
               jsonDecode(getUserTransferResponse.body);
           List<Transfer> transactionList = [];
           List<AccountType> getUserDetailList = [];
-          print(getUserTransferDetail);
+
           if (getUserTransferDetail != null) {
-            
             for (var element in getUserTransferDetail.keys) {
-              print(element);
               var getsTransfers = getUserTransferDetail[element];
-              transactionList.add(Transfer(
-                amount: getsTransfers['amount'],
-                description: getsTransfers['description'],
-                isSent: getsTransfers['isSent'],
-                phoneNumber: getsTransfers['phoneNumber'],
-              ));
-              // transactionList.add(getsTransfers);
+              transactionList.add(
+                Transfer(
+                  amount: getsTransfers['amount'],
+                  description: getsTransfers['description'],
+                  isSent: getsTransfers['isSent'],
+                  phoneNumber: getsTransfers['phoneNumber'],
+                ),
+              );
+              if (getsTransfers['isSent'] == true) {
+                allTransfer.add(
+                  Transfer(
+                    amount: getsTransfers['amount'],
+                    description: getsTransfers['description'],
+                    isSent: getsTransfers['isSent'],
+                    phoneNumber: getsTransfers['phoneNumber'],
+                  ),
+                );
+              } else if (getsTransfers['isSent'] == false) {
+                allRecieved.add(
+                  Transfer(
+                    amount: getsTransfers['amount'],
+                    description: getsTransfers['description'],
+                    isSent: getsTransfers['isSent'],
+                    phoneNumber: getsTransfers['phoneNumber'],
+                  ),
+                );
+              }
+              // 07035554425
+
             }
           }
           // else {

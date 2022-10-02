@@ -15,9 +15,17 @@ class TransactionSection extends StatefulWidget {
 
 class _TransactionSectionState extends State<TransactionSection> {
   int _currentState = 0;
+
+  int getLength(context) {
+    int length = 3;
+    return length;
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AppData>().user;
+    final datas = context.watch<AppData>();
+    print(_currentState);
     return Column(
       children: [
         Row(
@@ -55,22 +63,64 @@ class _TransactionSectionState extends State<TransactionSection> {
             ],
           ),
         ),
-        if (user.received != null)
-          ListView.builder(
-            primary: false,
-            itemCount: user.received!.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              var transfers = user.received![index];
-              // print(transfers);
-              return TransactionTile(
-                amount: transfers.amount!.toStringAsFixed(0),
-                transferTo: transfers.phoneNumber.toString(),
-                description: transfers.description.toString(),
-                isSend: transfers.isSent!,
-              );
-            },
-          )
+        (user.received == null || _currentState != 0)
+            ? (datas.allTransfer.isNotEmpty && _currentState == 2)
+                ? ListView.builder(
+                    primary: false,
+                    itemCount: datas.allTransfer.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      var sents = datas.allTransfer[index];
+                      print(sents);
+                      return TransactionTile(
+                        amount: sents.amount!.toStringAsFixed(0),
+                        transferTo: sents.phoneNumber.toString(),
+                        description: sents.description.toString(),
+                        isSend: sents.isSent!,
+                      );
+                    },
+                  )
+                : (datas.allRecieved.isNotEmpty && _currentState == 1)
+                    ? ListView.builder(
+                        primary: false,
+                        itemCount: user.received!.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          var recieved = datas.allRecieved[index];
+
+                          return TransactionTile(
+                            amount: recieved.amount!.toStringAsFixed(0),
+                            transferTo: recieved.phoneNumber.toString(),
+                            description: recieved.description.toString(),
+                            isSend: recieved.isSent!,
+                          );
+                        },
+                      )
+                    : Text(
+                        'No transaction',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSecondary),
+                      )
+            : (user.received!.isEmpty)
+                ? Text(
+                    'No transaction',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSecondary),
+                  )
+                : ListView.builder(
+                    primary: false,
+                    itemCount: user.received!.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      var transfers = user.received![index];
+                      return TransactionTile(
+                        amount: transfers.amount!.toStringAsFixed(0),
+                        transferTo: transfers.phoneNumber.toString(),
+                        description: transfers.description.toString(),
+                        isSend: transfers.isSent!,
+                      );
+                    },
+                  ),
       ],
     );
   }
