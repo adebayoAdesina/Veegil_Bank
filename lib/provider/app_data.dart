@@ -100,16 +100,25 @@ class AppData with ChangeNotifier {
               jsonDecode(getUserTransferResponse.body);
           List<Transfer> transactionList = [];
           List<AccountType> getUserDetailList = [];
-          for (var element in getUserTransferDetail.keys) {
-            var getsTransfers = getUserTransferDetail[element];
-            transactionList.add(Transfer(
-              amount: getsTransfers['amount'],
-              description: getsTransfers['description'],
-              isSent: getsTransfers['isSent'],
-              phoneNumber: getsTransfers['phoneNumber'],
-            ));
-            // transactionList.add(getsTransfers);
+          print(getUserTransferDetail);
+          if (getUserTransferDetail != null) {
+            
+            for (var element in getUserTransferDetail.keys) {
+              print(element);
+              var getsTransfers = getUserTransferDetail[element];
+              transactionList.add(Transfer(
+                amount: getsTransfers['amount'],
+                description: getsTransfers['description'],
+                isSent: getsTransfers['isSent'],
+                phoneNumber: getsTransfers['phoneNumber'],
+              ));
+              // transactionList.add(getsTransfers);
+            }
           }
+          // else {
+          //   print('object');
+          // }
+          print(getUserDetail);
           for (var element in getUserDetail['accounts']) {
             var getsTransfers = element;
             getUserDetailList.add(AccountType(
@@ -119,15 +128,13 @@ class AppData with ChangeNotifier {
             // ));
             // getUserDetailList.add(getsTransfers);
           }
-          // print(getUserDetailList);
-          // print(transactionList);
+
 // print(getUser)
           _user = User(
             number: getUserDetail['number'],
             password: getUserDetail['password'],
-            accounts: (getUserDetail['accounts']) != null
-                ? getUserDetailList
-                : [],
+            accounts:
+                (getUserDetail['accounts']) != null ? getUserDetailList : [],
             // sents: (getUserWithdrawDetail != null)
             //     ? (getUserWithdrawDetail)
             //         .map(
@@ -139,8 +146,7 @@ class AppData with ChangeNotifier {
             //         )
             //         .toList()
             //     : [],
-            received: transactionList != null ? transactionList : []
-                
+            received: transactionList,
           );
           _isLoad = true;
 
@@ -148,6 +154,7 @@ class AppData with ChangeNotifier {
           notifyListeners();
         } catch (e) {
           res = e.toString();
+          print(e.toString());
         }
       } else {
         res = 'User not found';

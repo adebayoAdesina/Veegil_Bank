@@ -5,12 +5,13 @@ import '../util/utils.dart';
 class TransactionTile extends StatelessWidget {
   final String transferTo;
   final String amount;
+  final String description;
   final bool isSend;
   const TransactionTile({
     Key? key,
     required this.transferTo,
     required this.amount,
-    required this.isSend,
+    required this.isSend, required this.description,
   }) : super(key: key);
 
   @override
@@ -41,11 +42,13 @@ class TransactionTile extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        'Date:',
+        'Description: $description',
         style: TextStyle(
           color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.45),
           fontSize: SizeConfig.subHeadingFontSize,
         ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
       ),
       trailing: Text(
         isSend == true ? '-₦$amount' : '+₦$amount',

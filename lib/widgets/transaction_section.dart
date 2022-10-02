@@ -55,23 +55,22 @@ class _TransactionSectionState extends State<TransactionSection> {
             ],
           ),
         ),
-        ListView.builder(
-          primary: false,
-          itemCount: user.received!.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            
+        if (user.received != null)
+          ListView.builder(
+            primary: false,
+            itemCount: user.received!.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
               var transfers = user.received![index];
               // print(transfers);
               return TransactionTile(
                 amount: transfers.amount!.toStringAsFixed(0),
                 transferTo: transfers.phoneNumber.toString(),
+                description: transfers.description.toString(),
                 isSend: transfers.isSent!,
-                
               );
-           
-          },
-        )
+            },
+          )
       ],
     );
   }
