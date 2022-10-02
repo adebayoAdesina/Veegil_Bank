@@ -65,10 +65,11 @@ class _LogInScreenState extends State<LogInScreen> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.pushReplacementNamed(
-        context,
-        NavigationBottomTab.id,
-      );
+      // Navigator.pushReplacementNamed(
+      //   context,
+      //   NavigationBottomTab.id,
+      // );
+      Navigator.pushNamedAndRemoveUntil(context, NavigationBottomTab.id, (route) => false);
     } else {
       logDialog(response, context);
       setState(() {

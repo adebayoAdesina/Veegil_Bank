@@ -13,6 +13,7 @@ class AppData with ChangeNotifier {
   String bankId = '';
   String transferId = '';
   String withdrawId = '';
+  String password = '';
   bool _isLoad = false;
   List<Transfer> allTransfer = [];
   List<Transfer> allRecieved = [];
@@ -81,6 +82,7 @@ class AppData with ChangeNotifier {
         bankId = details['bankId'];
         withdrawId = details['withdrawId'];
         transferId = details['transferId'];
+        password = details['password'];
         currentUserPhoneNumber = sign.phoneNumber.toString();
 
         // GET / account/bank
@@ -92,33 +94,25 @@ class AppData with ChangeNotifier {
         // GET / account/transfer
         String getUserTransferUrl =
             '$FLUTTER_APP_FIREBASE_URL/users/$id/transfer/$transferId.json';
+        if (sign.password == password) {
+          try {
+            var getUserResponse = await http.get(Uri.parse(getUserUrl));
+            var getUserDetail = jsonDecode(getUserResponse.body);
+            var getUserWithdrawResponse =
+                await http.get(Uri.parse(getUserWithdrawUrl));
+            var getUserWithdrawDetail =
+                jsonDecode(getUserWithdrawResponse.body);
+            var getUserTransferResponse =
+                await http.get(Uri.parse(getUserTransferUrl));
+            Map<String, dynamic> getUserTransferDetail =
+                jsonDecode(getUserTransferResponse.body);
+            List<Transfer> transactionList = [];
+            List<AccountType> getUserDetailList = [];
 
-        try {
-          var getUserResponse = await http.get(Uri.parse(getUserUrl));
-          var getUserDetail = jsonDecode(getUserResponse.body);
-          var getUserWithdrawResponse =
-              await http.get(Uri.parse(getUserWithdrawUrl));
-          var getUserWithdrawDetail = jsonDecode(getUserWithdrawResponse.body);
-          var getUserTransferResponse =
-              await http.get(Uri.parse(getUserTransferUrl));
-          Map<String, dynamic> getUserTransferDetail =
-              jsonDecode(getUserTransferResponse.body);
-          List<Transfer> transactionList = [];
-          List<AccountType> getUserDetailList = [];
-
-          if (getUserTransferDetail != null) {
-            for (var element in getUserTransferDetail.keys) {
-              var getsTransfers = getUserTransferDetail[element];
-              transactionList.add(
-                Transfer(
-                  amount: getsTransfers['amount'],
-                  description: getsTransfers['description'],
-                  isSent: getsTransfers['isSent'],
-                  phoneNumber: getsTransfers['phoneNumber'],
-                ),
-              );
-              if (getsTransfers['isSent'] == true) {
-                allTransfer.add(
+            if (getUserTransferDetail != null) {
+              for (var element in getUserTransferDetail.keys) {
+                var getsTransfers = getUserTransferDetail[element];
+                transactionList.add(
                   Transfer(
                     amount: getsTransfers['amount'],
                     description: getsTransfers['description'],
@@ -126,60 +120,72 @@ class AppData with ChangeNotifier {
                     phoneNumber: getsTransfers['phoneNumber'],
                   ),
                 );
-              } else if (getsTransfers['isSent'] == false) {
-                allRecieved.add(
-                  Transfer(
-                    amount: getsTransfers['amount'],
-                    description: getsTransfers['description'],
-                    isSent: getsTransfers['isSent'],
-                    phoneNumber: getsTransfers['phoneNumber'],
-                  ),
-                );
+                if (getsTransfers['isSent'] == true) {
+                  allTransfer.add(
+                    Transfer(
+                      amount: getsTransfers['amount'],
+                      description: getsTransfers['description'],
+                      isSent: getsTransfers['isSent'],
+                      phoneNumber: getsTransfers['phoneNumber'],
+                    ),
+                  );
+                } else if (getsTransfers['isSent'] == false) {
+                  allRecieved.add(
+                    Transfer(
+                      amount: getsTransfers['amount'],
+                      description: getsTransfers['description'],
+                      isSent: getsTransfers['isSent'],
+                      phoneNumber: getsTransfers['phoneNumber'],
+                    ),
+                  );
+                }
+                // 07035554425
+
               }
-              // 07035554425
-
             }
-          }
-          // else {
-          //   print('object');
-          // }
-          print(getUserDetail);
-          for (var element in getUserDetail['accounts']) {
-            var getsTransfers = element;
-            getUserDetailList.add(AccountType(
-              accountBalance: (getsTransfers['accountBalance'] as double),
-              accountTitle: getsTransfers['accountTitle'],
-            ));
-            // ));
-            // getUserDetailList.add(getsTransfers);
-          }
+            // else {
+            //   print('object');
+            // }
+            print(getUserDetail);
+            for (var element in getUserDetail['accounts']) {
+              var getsTransfers = element;
+              getUserDetailList.add(AccountType(
+                accountBalance: (getsTransfers['accountBalance'] as double),
+                accountTitle: getsTransfers['accountTitle'],
+              ));
+              // ));
+              // getUserDetailList.add(getsTransfers);
+            }
 
 // print(getUser)
-          _user = User(
-            number: getUserDetail['number'],
-            password: getUserDetail['password'],
-            accounts:
-                (getUserDetail['accounts']) != null ? getUserDetailList : [],
-            // sents: (getUserWithdrawDetail != null)
-            //     ? (getUserWithdrawDetail)
-            //         .map(
-            //           (e) => Transfer(
-            //             amount: e['amount'],
-            //             description: e['description'],
-            //             phoneNumber: e['phoneNumber'],
-            //           ),
-            //         )
-            //         .toList()
-            //     : [],
-            received: transactionList,
-          );
-          _isLoad = true;
+            _user = User(
+              number: getUserDetail['number'],
+              password: getUserDetail['password'],
+              accounts:
+                  (getUserDetail['accounts']) != null ? getUserDetailList : [],
+              // sents: (getUserWithdrawDetail != null)
+              //     ? (getUserWithdrawDetail)
+              //         .map(
+              //           (e) => Transfer(
+              //             amount: e['amount'],
+              //             description: e['description'],
+              //             phoneNumber: e['phoneNumber'],
+              //           ),
+              //         )
+              //         .toList()
+              //     : [],
+              received: transactionList,
+            );
+            _isLoad = true;
 
-          res = 'success';
-          notifyListeners();
-        } catch (e) {
-          res = e.toString();
-          print(e.toString());
+            res = 'success';
+            notifyListeners();
+          } catch (e) {
+            res = e.toString();
+            print(e.toString());
+          }
+        } else {
+          res = 'Wrong password';
         }
       } else {
         res = 'User not found';
