@@ -67,6 +67,18 @@ class AppData with ChangeNotifier {
     return total;
   }
 
+  Stream<String> getusers(Duration refreshTime) async* {
+    while (true) {
+      await Future.delayed(refreshTime);
+      yield await getUser(
+        SignUser(
+          phoneNumber: currentUserPhoneNumber,
+          password: password,
+        ),
+      );
+    }
+  }
+
   Future<String> getUser(SignUser sign) async {
     String res = 'Please check your internet connection';
 

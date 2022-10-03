@@ -5,7 +5,7 @@ class FadeInRoute extends PageRouteBuilder {
 
   FadeInRoute({required this.page, String? routeName})
       : super(
-          settings: RouteSettings(name: routeName),            // set name here
+          settings: RouteSettings(name: routeName),
           pageBuilder: (
             BuildContext context,
             Animation<double> animation,
