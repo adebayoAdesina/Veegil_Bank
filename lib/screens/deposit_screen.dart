@@ -29,7 +29,8 @@ class _DepositScreenState extends State<DepositScreen> {
     final user = context.watch<AppData>();
     final deposit = context.read<DepositProvider>();
     SizeConfig().init(context);
-    String _url = 'https://img.freepik.com/free-vector/illustration-character-saving-money-safe_53876-37248.jpg?w=826&t=st=1664777355~exp=1664777955~hmac=074bed0187289f98b046caefc82bd0052e5eb662a9cc6b52daec6eb7a9bf367c';
+    String _url =
+        'https://img.freepik.com/free-vector/illustration-character-saving-money-safe_53876-37248.jpg?w=826&t=st=1664777355~exp=1664777955~hmac=074bed0187289f98b046caefc82bd0052e5eb662a9cc6b52daec6eb7a9bf367c';
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       child: Scaffold(
@@ -75,7 +76,6 @@ class _DepositScreenState extends State<DepositScreen> {
                       child: SingleChildScrollView(
                           child: Column(
                         children: [
-                          
                           transferInput(context, 'Amount', (e) {
                             setState(() {
                               amount = double.parse(e);
@@ -91,9 +91,16 @@ class _DepositScreenState extends State<DepositScreen> {
                           LogButton(
                               size: size,
                               text: 'Deposit',
-                              onTap: () async{
+                              onTap: () async {
                                 if (password == user.password) {
-                                  var response = await deposit.depositToSelfAccount(user.id, user.bankId, amount);
+                                  var response =
+                                      await deposit.depositToSelfAccount(
+                                    user.id,
+                                    user.bankId,
+                                    amount,
+                                    user.currentUserPhoneNumber,
+                                    user.depositId,
+                                  );
                                   print(response);
                                 } else {
                                   logDialog(
@@ -114,6 +121,7 @@ class _DepositScreenState extends State<DepositScreen> {
       ),
     );
   }
+
   Padding transferInput(BuildContext context, String hintText,
       ValueChanged onChanged, bool isObscure) {
     return Padding(
@@ -164,5 +172,5 @@ class _DepositScreenState extends State<DepositScreen> {
         ),
       ),
     );
-}
+  }
 }

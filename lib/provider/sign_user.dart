@@ -95,6 +95,17 @@ class SignUser with ChangeNotifier {
           );
           final withdrawValue = jsonDecode(withdrawResponse.body);
 
+
+          // Post / accounts/deposit
+          String depositUrl =
+              '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/deposit.json';
+          List<Map<String, dynamic>> _deposit = [];
+          final depositResponse = await http.post(
+            Uri.parse(depositUrl),
+            body: jsonEncode(_deposit),
+          );
+          final depositValue = jsonDecode(depositResponse.body);
+
           // Post / auth / login
           Map<dynamic, dynamic> bankValue = jsonDecode(userResponse.body);
           final logInResponse = await http.post(
@@ -107,6 +118,7 @@ class SignUser with ChangeNotifier {
                 'bankId': bankValue['name'],
                 'transferId': transferValue['name'],
                 'withdrawId': withdrawValue['name'],
+                'depositId' : depositValue['name'],
               },
             ),
           );

@@ -96,17 +96,23 @@ class _TransactionSectionState extends State<TransactionSection> {
                           );
                         },
                       )
-                    : Text(
-                        'No transaction',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSecondary),
-                      )
+                    : Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text(
+                          'No transaction',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSecondary),
+                        ),
+                    )
             : (user.received!.isEmpty)
-                ? Text(
-                    'No transaction',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSecondary),
-                  )
+                ? Padding(
+                  padding: const EdgeInsets.only(top:20.0),
+                  child: Text(
+                      'No transaction',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary),
+                    ),
+                )
                 : ListView.builder(
                     primary: false,
                     itemCount: user.received!.length,

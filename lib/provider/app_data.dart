@@ -13,6 +13,7 @@ class AppData with ChangeNotifier {
   String bankId = '';
   String transferId = '';
   String withdrawId = '';
+  String depositId = '';
   String password = '';
   bool _isLoad = false;
   List<Transfer> allTransfer = [];
@@ -82,6 +83,7 @@ class AppData with ChangeNotifier {
         bankId = details['bankId'];
         withdrawId = details['withdrawId'];
         transferId = details['transferId'];
+        depositId = details['depositId'];
         password = details['password'];
         currentUserPhoneNumber = sign.phoneNumber.toString();
 

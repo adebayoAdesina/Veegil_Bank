@@ -13,8 +13,8 @@ class DepositProvider with ChangeNotifier {
     this.amount,
   });
 
-  Future<String> depositToSelfAccount(
-      String id, String bankId, double amount) async {
+  Future<String> depositToSelfAccount(String id, String bankId, double amount,
+      String phoneNumber, String depositId) async {
     String res = 'failed';
 
     // Get / accounts
@@ -41,6 +41,15 @@ class DepositProvider with ChangeNotifier {
         }
       }
 
+      // POST to current user / account/deposit
+      String postDepositUrl =
+          '$FLUTTER_APP_FIREBASE_URL/users/$id/deposit/$depositId.json';
+      Map<String, dynamic> _postCredit = {
+        'phoneNumber': phoneNumber,
+        'amount': amount,
+        'isDeposit': true,
+      };
+
       try {
         // Patch request to update sent user
         var updateUserDeposit = await http.patch(
@@ -49,19 +58,20 @@ class DepositProvider with ChangeNotifier {
             {
               'number': bankData['number'],
               'password': bankData['password'],
-              'accounts': newTransaction
-                
+              'accounts': newTransaction,
             },
           ),
         );
-
+        var postFromTransferLink = await http.post(
+          Uri.parse(postDepositUrl),
+          body: jsonEncode(_postCredit),
+        );
         res = 'success';
-        print(updateUserDeposit.body);
       } catch (e) {
-        print(e.toString());
+        res = e.toString();
       }
     } catch (e) {
-      print(e.toString());
+      res = e.toString();
     }
 
     return res;

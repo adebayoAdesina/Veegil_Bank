@@ -50,7 +50,7 @@ class TransferProvider with ChangeNotifier {
             '$FLUTTER_APP_FIREBASE_URL/users/$getUserId/account/$getUserBankId.json';
 
         // To Post to the address transferred  to
-        // POST to current user / account/transfer
+        // POST to recieving user / account/transfer
         String postTransferUrl =
             '$FLUTTER_APP_FIREBASE_URL/users/$getUserId/transfer/$getUserTransferId.json';
         Map<String, dynamic> _posttransfer = {

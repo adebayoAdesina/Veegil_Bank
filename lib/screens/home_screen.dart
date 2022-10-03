@@ -6,6 +6,8 @@ import '../provider/app_data.dart';
 import '../util/utils.dart';
 import '../widgets/account_scroll_list_card.dart';
 import '../widgets/finance_section.dart';
+import '../widgets/user_deposit_section.dart';
+import '../widgets/user_withdraw_section.dart';
 
 class HomeScreen extends StatefulWidget {
   // static const id = '/';
@@ -136,9 +138,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         uContentSizedBoxH(),
                         uContentSizedBoxH(),
                         const TransactionSection(),
+                        uContentSizedBoxH(),
+                        uContentSizedBoxH(),
+                        uContentSizedBoxH(),
+                        const UserDepositSection(),
+                        uContentSizedBoxH(),
+                        uContentSizedBoxH(),
+                        uContentSizedBoxH(),
+                        const UserWithdrawSection(),
                         uSafeAreaSizedBox,
                         uSafeAreaSizedBox
-                        
                       ],
                     ),
                   )

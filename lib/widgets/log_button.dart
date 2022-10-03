@@ -20,7 +20,7 @@ class LogButton extends StatelessWidget {
       onTap: (() => onTap()),
       child: Container(
         width: size.width * 0.9,
-        height: size.height * 0.07,
+        height: 60,
         decoration: BoxDecoration(
           
           color: isMain
