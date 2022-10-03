@@ -5,12 +5,14 @@ import 'package:http/http.dart' as http;
 import '../auths/auth.dart';
 
 class DepositProvider with ChangeNotifier {
-  String? password;
+  String? phoneNumber;
   double? amount;
+  bool? isDeposit;
 
   DepositProvider({
-    this.password,
+    this.phoneNumber,
     this.amount,
+    this.isDeposit,
   });
 
   Future<String> depositToSelfAccount(String id, String bankId, double amount,

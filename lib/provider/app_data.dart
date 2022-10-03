@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_banking/model/transfer.dart';
+import 'package:simple_banking/provider/deposit_provider.dart';
 import '../model/account_type.dart';
 import '../model/user.dart';
 import '../provider/sign_user.dart';
@@ -18,6 +19,7 @@ class AppData with ChangeNotifier {
   bool _isLoad = false;
   List<Transfer> allTransfer = [];
   List<Transfer> allRecieved = [];
+  List<DepositProvider> deposit = [];
 
   // User _user = User();
 
@@ -91,8 +93,8 @@ class AppData with ChangeNotifier {
         String getUserUrl =
             '$FLUTTER_APP_FIREBASE_URL/users/$id/account/$bankId.json';
         // GET / account/withdraw
-        String getUserWithdrawUrl =
-            '$FLUTTER_APP_FIREBASE_URL/users/$id/withdraw/$withdrawId.json';
+        String getUserDepositUrl =
+            '$FLUTTER_APP_FIREBASE_URL/users/$id/deposit/$depositId.json';
         // GET / account/transfer
         String getUserTransferUrl =
             '$FLUTTER_APP_FIREBASE_URL/users/$id/transfer/$transferId.json';
@@ -100,17 +102,26 @@ class AppData with ChangeNotifier {
           try {
             var getUserResponse = await http.get(Uri.parse(getUserUrl));
             var getUserDetail = jsonDecode(getUserResponse.body);
-            var getUserWithdrawResponse =
-                await http.get(Uri.parse(getUserWithdrawUrl));
-            var getUserWithdrawDetail =
-                jsonDecode(getUserWithdrawResponse.body);
+            var getUserDepositResponse =
+                await http.get(Uri.parse(getUserDepositUrl));
+            Map<String, dynamic> getUserDepositDetail =
+                jsonDecode(getUserDepositResponse.body);
             var getUserTransferResponse =
                 await http.get(Uri.parse(getUserTransferUrl));
             Map<String, dynamic> getUserTransferDetail =
                 jsonDecode(getUserTransferResponse.body);
             List<Transfer> transactionList = [];
             List<AccountType> getUserDetailList = [];
-
+            if (getUserDepositDetail != null) {
+              for (var item in getUserDepositDetail.keys) {
+                var getDeposit = getUserDepositDetail[item];
+                deposit.add(DepositProvider(
+                    amount: getDeposit['amount'],
+                    phoneNumber: getDeposit['phoneNumber'],
+                    isDeposit: getDeposit['isDeposit']));
+              }
+            }
+            print(deposit);
             if (getUserTransferDetail != null) {
               for (var element in getUserTransferDetail.keys) {
                 var getsTransfers = getUserTransferDetail[element];
@@ -148,7 +159,7 @@ class AppData with ChangeNotifier {
             // else {
             //   print('object');
             // }
-            print(getUserDetail);
+
             for (var element in getUserDetail['accounts']) {
               var getsTransfers = element;
               getUserDetailList.add(AccountType(
@@ -159,7 +170,6 @@ class AppData with ChangeNotifier {
               // getUserDetailList.add(getsTransfers);
             }
 
-// print(getUser)
             _user = User(
               number: getUserDetail['number'],
               password: getUserDetail['password'],
