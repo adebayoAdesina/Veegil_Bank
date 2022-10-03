@@ -63,7 +63,6 @@ class _TransferScreenState extends State<TransferScreen> {
                       width: double.infinity,
                       height: 200,
                       decoration: BoxDecoration(
-                        // color: Colors.blueAccent,
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: ClipRRect(
@@ -115,7 +114,8 @@ class _TransferScreenState extends State<TransferScreen> {
                                           logDialog(
                                               'Your cant transfer more than your ${userSalary.accountBalance}',
                                               context,
-                                              Icons.error_outline_rounded, Colors.red);
+                                              Icons.error_outline_rounded,
+                                              Colors.red);
                                         }
                                       })
                                 ],
@@ -135,58 +135,55 @@ class _TransferScreenState extends State<TransferScreen> {
                                       if (user.user.number != phoneNumber ||
                                           user.user.password == password) {
                                         if (amount != 0 ||
-                                                  password != '' ||
-                                                  description != '') {
-                                                // Navigator.pop(context);
-                                                setState(() {
-                                                  _isLoad = true;
-                                                });
-                                                var response =
-                                                    await _transfer.transfer(
-                                                  user.id,
-                                                  user.transferId,
-                                                  phoneNumber,
-                                                  amount,
-                                                  description,
-                                                  user.bankId,
-                                                  user.user,
+                                            password != '' ||
+                                            description != '') {
+                                          setState(() {
+                                            _isLoad = true;
+                                          });
+                                          var response =
+                                              await _transfer.transfer(
+                                            user.id,
+                                            user.transferId,
+                                            phoneNumber,
+                                            amount,
+                                            description,
+                                            user.bankId,
+                                            user.user,
+                                          );
+                                          setState(() {
+                                            _isLoad = false;
+                                          });
+
+                                          if (response == 'success') {
+                                            context.read<AppData>().getUser(
+                                                  SignUser(
+                                                    phoneNumber: user
+                                                        .currentUserPhoneNumber,
+                                                  ),
                                                 );
-                                                setState(() {
-                                                  _isLoad = false;
-                                                });
 
-                                                if (response == 'success') {
-                                                  context
-                                                      .read<AppData>()
-                                                      .getUser(
-                                                        SignUser(
-                                                          phoneNumber: user
-                                                              .currentUserPhoneNumber,
-                                                        ),
-                                                      );
-
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                    context,
-                                                    NavigationBottomTab.id,
-                                                  );
-                                                  logDialog('Done', context, Icons.done_all, Colors.green);
-                                                }
-                                              }
-                                            
+                                            Navigator.pushReplacementNamed(
+                                              context,
+                                              NavigationBottomTab.id,
+                                            );
+                                            logDialog('Done', context,
+                                                Icons.done_all, Colors.green);
+                                          }
+                                        }
                                       } else if (user.user.number ==
                                           phoneNumber) {
                                         logDialog(
-                                          'You cant transfer to your account',
-                                          context,
-                                          Icons.error_outline_rounded, Colors.red
-                                        );
+                                            'You cant transfer to your account',
+                                            context,
+                                            Icons.error_outline_rounded,
+                                            Colors.red);
                                       } else if (user.user.password !=
                                           password) {
                                         logDialog(
                                           'Wrong Password',
                                           context,
-                                          Icons.error_outline_rounded, Colors.red,
+                                          Icons.error_outline_rounded,
+                                          Colors.red,
                                         );
                                       }
                                     },

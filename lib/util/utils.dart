@@ -56,7 +56,7 @@ Future<dynamic> logDialog(String response, BuildContext context, IconData icon, 
       builder: (context) => Dialog(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
+          child: SizedBox(
             height: 150,
             child: SingleChildScrollView(
               child: Column(
@@ -64,7 +64,7 @@ Future<dynamic> logDialog(String response, BuildContext context, IconData icon, 
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(icon, color: color, size: 60,),
-                  Text(response, style: TextStyle(fontSize: 20) , textAlign: TextAlign.center,),
+                  Text(response, style: const TextStyle(fontSize: 20) , textAlign: TextAlign.center,),
                 ],
               ),
             ),
