@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_banking/screens/transaction_screen.dart';
 import 'package:simple_banking/screens/transfer_screen.dart';
 import '../constant/colors.dart';
 import '../provider/app_data.dart';
@@ -26,7 +27,8 @@ GestureDetector getGesture (context) {
   }
   final List<dynamic> _pages = const [
     HomeScreen(),
-    TransferScreen(),
+    // TransferScreen(),
+    TransactionScreen(),
     ProfileScreen(),
   ];
 

@@ -15,6 +15,7 @@ import '../provider/app_data.dart';
 import '../util/utils.dart';
 
 class TransferScreen extends StatefulWidget {
+  static const id = 'transfer';
   const TransferScreen({Key? key}) : super(key: key);
 
   @override

@@ -4,7 +4,9 @@ import 'package:simple_banking/screens/log_in_or_sign_up_screen.dart';
 import 'package:simple_banking/screens/log_in_screen.dart';
 import 'package:simple_banking/screens/navigation_bottom_tab.dart';
 import 'package:simple_banking/screens/sign_up_screen.dart';
+import 'package:simple_banking/screens/transfer_screen.dart';
 
+import '../screens/deposit_screen.dart';
 import '../screens/splash_screen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
@@ -13,5 +15,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   LogInScreen.id: (context) => const LogInScreen(),
   SignUpScreen.id: (context) => const SignUpScreen(),
   // HomeScreen.id: (context) => const HomeScreen()
-  NavigationBottomTab.id : (context) => const NavigationBottomTab()
+  NavigationBottomTab.id: (context) => const NavigationBottomTab(),
+  TransferScreen.id: (context) => const TransferScreen(),
+  DepositScreen.id: (context) => const DepositScreen(),
 };
