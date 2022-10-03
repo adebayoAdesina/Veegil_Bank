@@ -49,7 +49,6 @@ class _TransferScreenState extends State<TransferScreen> {
             style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal! * 5),
           ),
           centerTitle: true,
-          automaticallyImplyLeading: false,
         ),
         body: ModalProgressHUD(
           inAsyncCall: _isLoad,

@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_banking/provider/deposit_provider.dart';
 
 import '../constant/colors.dart';
+import '../provider/app_data.dart';
 import '../util/utils.dart';
 import '../widgets/log_button.dart';
 
@@ -16,13 +19,15 @@ class DepositScreen extends StatefulWidget {
 
 class _DepositScreenState extends State<DepositScreen> {
   bool _changed = false;
-  String phoneNumber = '';
+
   double amount = 0;
-  String description = '';
+
   String password = '';
   bool _isLoad = false;
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AppData>();
+    final deposit = context.read<DepositProvider>();
     SizeConfig().init(context);
     String _url = 'https://img.freepik.com/free-vector/illustration-character-saving-money-safe_53876-37248.jpg?w=826&t=st=1664777355~exp=1664777955~hmac=074bed0187289f98b046caefc82bd0052e5eb662a9cc6b52daec6eb7a9bf367c';
     Size size = MediaQuery.of(context).size;
@@ -34,7 +39,6 @@ class _DepositScreenState extends State<DepositScreen> {
             style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal! * 5),
           ),
           centerTitle: true,
-          automaticallyImplyLeading: false,
         ),
         body: ModalProgressHUD(
           inAsyncCall: _isLoad,
@@ -71,11 +75,7 @@ class _DepositScreenState extends State<DepositScreen> {
                       child: SingleChildScrollView(
                           child: Column(
                         children: [
-                          transferInput(context, 'Account number', (e) {
-                            setState(() {
-                              phoneNumber = e;
-                            });
-                          }, false),
+                          
                           transferInput(context, 'Amount', (e) {
                             setState(() {
                               amount = double.parse(e);
@@ -91,17 +91,16 @@ class _DepositScreenState extends State<DepositScreen> {
                           LogButton(
                               size: size,
                               text: 'Deposit',
-                              onTap: () {
-                                // if (userSalary.accountBalance! >= amount) {
-                                //   setState(() {
-                                //     _changed = !_changed;
-                                //   });
-                                // } else {
-                                //   logDialog(
-                                //     'Your cant transfer more than your ${userSalary.accountBalance}',
-                                //     context,
-                                //   );
-                                // }
+                              onTap: () async{
+                                if (password == user.password) {
+                                  var response = await deposit.depositToSelfAccount(user.id, user.bankId, amount);
+                                  print(response);
+                                } else {
+                                  logDialog(
+                                    'Wrong password',
+                                    context,
+                                  );
+                                }
                               })
                         ],
                       )),

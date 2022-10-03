@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_banking/constant/colors.dart';
 import 'package:simple_banking/model/transfer.dart';
+import 'package:simple_banking/provider/deposit_provider.dart';
 import 'package:simple_banking/provider/sign_user.dart';
 import 'package:simple_banking/provider/app_data.dart';
 import 'package:simple_banking/provider/transfer_provider.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => TransferProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DepositProvider(),
         ),
       ],
       child: AnnotatedRegion<SystemUiOverlayStyle>(

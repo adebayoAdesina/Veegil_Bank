@@ -28,20 +28,28 @@ class _TransactionScreenState extends State<TransactionScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, TransferScreen.id),
-            child: TransactionButton(transferUrl: _transferUrl, size: size, text: 'Transfer',)),
-          uSafeAreaSizedBox,
-          uSafeAreaSizedBox,
-          uSafeAreaSizedBox,
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context,  DepositScreen.id),
-            child: TransactionButton(transferUrl: _depositUrl, size: size, text: 'Deposit',)),
-        
-
-        ]),
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, TransferScreen.id),
+              child: TransactionButton(
+                transferUrl: _transferUrl,
+                size: size,
+                text: 'Transfer',
+              ),
+            ),
+            uSafeAreaSizedBox,
+            uSafeAreaSizedBox,
+            uSafeAreaSizedBox,
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, DepositScreen.id),
+              child: TransactionButton(
+                transferUrl: _depositUrl,
+                size: size,
+                text: 'Deposit',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
