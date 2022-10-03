@@ -4,6 +4,7 @@ import 'package:simple_banking/constant/colors.dart';
 
 import '../provider/app_data.dart';
 import '../util/utils.dart';
+import 'notransaction.dart';
 import 'transaction_tile.dart';
 
 class TransactionSection extends StatefulWidget {
@@ -96,23 +97,9 @@ class _TransactionSectionState extends State<TransactionSection> {
                           );
                         },
                       )
-                    : Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Text(
-                          'No transaction',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSecondary),
-                        ),
-                    )
+                    : const NoTransaction(text: 'No transaction')
             : (user.received!.isEmpty)
-                ? Padding(
-                  padding: const EdgeInsets.only(top:20.0),
-                  child: Text(
-                      'No transaction',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSecondary),
-                    ),
-                )
+                ? const NoTransaction(text: 'No transaction')
                 : ListView.builder(
                     primary: false,
                     itemCount: user.received!.length,

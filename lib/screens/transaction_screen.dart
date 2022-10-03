@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_banking/animation/fadeInRoute.dart';
 import 'package:simple_banking/screens/transfer_screen.dart';
 import 'package:simple_banking/util/utils.dart';
 
@@ -29,7 +30,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () => Navigator.pushNamed(context, TransferScreen.id),
+              onTap: () => Navigator.push(context, FadeInRoute(page: const TransferScreen(), routeName: TransferScreen.id,),),
               child: TransactionButton(
                 transferUrl: _transferUrl,
                 size: size,
@@ -40,7 +41,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
             uSafeAreaSizedBox,
             uSafeAreaSizedBox,
             GestureDetector(
-              onTap: () => Navigator.pushNamed(context, DepositScreen.id),
+              onTap: () => Navigator.push(context, FadeInRoute(page: const DepositScreen(), routeName: DepositScreen.id)),
               child: TransactionButton(
                 transferUrl: _depositUrl,
                 size: size,

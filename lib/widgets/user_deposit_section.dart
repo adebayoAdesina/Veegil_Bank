@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_banking/provider/app_data.dart';
 import 'package:simple_banking/widgets/deposit_list_card.dart';
+import 'package:simple_banking/widgets/notransaction.dart';
 
 import '../util/utils.dart';
 
@@ -8,6 +11,7 @@ class UserDepositSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deposit = context.watch<AppData>().deposit;
     return Column(
       children: [
         Row(
@@ -24,14 +28,20 @@ class UserDepositSection extends StatelessWidget {
           ],
         ),
         uContentSizedBoxH(),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: 2,
-          primary: false,
-          itemBuilder: (context, index) {
-            return DepositListCard(amount: '200', isDeposit: true);
-          },
-        )
+        deposit.isNotEmpty
+            ? ListView.builder(
+                shrinkWrap: true,
+                itemCount: deposit.length,
+                primary: false,
+                itemBuilder: (context, index) {
+                  var currentDeposit = deposit[index];
+                  return DepositListCard(
+                    amount: currentDeposit.amount.toString(),
+                    isDeposit: true,
+                  );
+                },
+              )
+            : const NoTransaction(text: 'No deposit')
       ],
     );
   }

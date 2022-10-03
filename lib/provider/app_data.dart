@@ -20,6 +20,7 @@ class AppData with ChangeNotifier {
   List<Transfer> allTransfer = [];
   List<Transfer> allRecieved = [];
   List<DepositProvider> deposit = [];
+  List withdraw = [];
 
   // User _user = User();
 
@@ -92,7 +93,7 @@ class AppData with ChangeNotifier {
         // GET / account/bank
         String getUserUrl =
             '$FLUTTER_APP_FIREBASE_URL/users/$id/account/$bankId.json';
-        // GET / account/withdraw
+        // GET / account/deposit
         String getUserDepositUrl =
             '$FLUTTER_APP_FIREBASE_URL/users/$id/deposit/$depositId.json';
         // GET / account/transfer

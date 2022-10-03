@@ -69,6 +69,7 @@ class MyApp extends StatelessWidget {
           initialRoute: SplashScreen.id,
           // initialRoute: NavigationBottomTab.id,
           routes: routes,
+          
         ),
       ),
     );

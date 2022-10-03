@@ -40,7 +40,6 @@ dependencies:
   modal_progress_hud_nsn: ^0.3.0
   water_drop_nav_bar: ^2.2.0+4
   intl: ^0.17.0
-  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:

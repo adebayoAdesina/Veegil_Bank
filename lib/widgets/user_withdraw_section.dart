@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/app_data.dart';
 import '../util/utils.dart';
 import 'deposit_list_card.dart';
+import 'notransaction.dart';
 
 class UserWithdrawSection extends StatelessWidget {
-  const UserWithdrawSection({ Key? key }) : super(key: key);
+  const UserWithdrawSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final withdraw = context.watch<AppData>().withdraw;
     return Column(
       children: [
         Row(
@@ -24,14 +28,20 @@ class UserWithdrawSection extends StatelessWidget {
           ],
         ),
         uContentSizedBoxH(),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: 2,
-          primary: false,
-          itemBuilder: (context, index) {
-            return DepositListCard(amount: '200', isDeposit: false,);
-          },
-        )
+        withdraw.isNotEmpty
+            ? ListView.builder(
+                shrinkWrap: true,
+                itemCount: withdraw.length,
+                primary: false,
+                itemBuilder: (context, index) {
+                  var currentWithdraw = withdraw[index];
+                  return DepositListCard(
+                    amount: '',
+                    isDeposit: false,
+                  );
+                },
+              )
+            : const NoTransaction(text: 'No Withdraw')
       ],
     );
   }
