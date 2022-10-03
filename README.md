@@ -3,8 +3,9 @@
 # Veegil_Bank
 
 A bank app made Flutter + Firebase Realtime databse + Provider State Management.
-<a href='assets/logo/simpleBank.png' download >DOWNLOAD APPLICATION</a>
-
+<br/>
+<a href='lib/build_apk/' download >DOWNLOAD APPLICATION</a>
+<br/>
 
 It consist of POST, GET and PATCH request.
 

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/constant/colors.dart';
-import 'package:simple_banking/model/transfer.dart';
-import 'package:simple_banking/provider/deposit_provider.dart';
-import 'package:simple_banking/provider/sign_user.dart';
-import 'package:simple_banking/provider/app_data.dart';
-import 'package:simple_banking/provider/transfer_provider.dart';
-import 'package:simple_banking/routes/route.dart';
-import 'package:simple_banking/screens/log_in_or_sign_up_screen.dart';
-import 'package:simple_banking/screens/navigation_bottom_tab.dart';
-import 'package:simple_banking/screens/splash_screen.dart';
+import '../constant/colors.dart';
+import '../provider/deposit_provider.dart';
+import '../provider/sign_user.dart';
+import '../provider/app_data.dart';
+import '../provider/transfer_provider.dart';
+import '../routes/route.dart';
+import '../screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,9 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => SignUser(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => AppColor(),
-        ),
+       
         ChangeNotifierProvider(
           create: (context) => TransferProvider(),
         ),
@@ -46,7 +41,8 @@ class MyApp extends StatelessWidget {
       ),
         
         child: MaterialApp(
-          title: 'SimpleBank',
+          color: const Color(0XFF252525),
+          title: 'Veegil Bank',
           theme: ThemeData(
             colorScheme: ColorScheme(
               brightness: Brightness.light,

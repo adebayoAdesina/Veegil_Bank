@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/screens/log_in_screen.dart';
+import '../screens/log_in_screen.dart';
 
 import '../constant/colors.dart';
 import '../util/utils.dart';

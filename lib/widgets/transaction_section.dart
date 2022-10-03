@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/constant/colors.dart';
+import '../constant/colors.dart';
 
 import '../provider/app_data.dart';
 import '../util/utils.dart';

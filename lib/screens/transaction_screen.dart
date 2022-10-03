@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
-import 'package:simple_banking/animation/fadeIn_route.dart';
-import 'package:simple_banking/screens/transfer_screen.dart';
-import 'package:simple_banking/util/utils.dart';
+import '../animation/fadeIn_route.dart';
+import '../screens/transfer_screen.dart';
+import '../util/utils.dart';
 
 import '../widgets/transaction_button.dart';
 import 'deposit_screen.dart';

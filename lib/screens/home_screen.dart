@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/provider/sign_user.dart';
+import '../provider/sign_user.dart';
 import '../widgets/transaction_section.dart';
 import '../constant/colors.dart';
 import '../provider/app_data.dart';
@@ -46,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           const CircleAvatar(
                             radius: 24,
-                            backgroundImage: AssetImage(
-                              'assets/image/adebayoAdesina.jpg',
+                            backgroundImage: NetworkImage(
+                              'https://th.bing.com/th/id/OIP.vmIIvAl_TkD0340tgTb0UwHaHa?pid=ImgDet&rs=1',
                             ),
                           ),
                           Expanded(

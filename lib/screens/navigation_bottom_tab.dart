@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
-import 'package:simple_banking/screens/transaction_screen.dart';
-import 'package:simple_banking/screens/transfer_screen.dart';
+import '../screens/transaction_screen.dart';
 import '../constant/colors.dart';
-import '../provider/app_data.dart';
 import '../screens/home_screen.dart';
 import '../screens/profile_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';

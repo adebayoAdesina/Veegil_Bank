@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_banking/screens/sign_up_screen.dart';
+import '../screens/sign_up_screen.dart';
 import '../util/utils.dart';
 import '../constant/colors.dart';
 

@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/provider/deposit_provider.dart';
-import 'package:simple_banking/screens/navigation_bottom_tab.dart';
+import '../provider/deposit_provider.dart';
+import '../screens/navigation_bottom_tab.dart';
 
 import '../constant/colors.dart';
 import '../provider/app_data.dart';

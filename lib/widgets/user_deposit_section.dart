@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/provider/app_data.dart';
-import 'package:simple_banking/widgets/deposit_list_card.dart';
-import 'package:simple_banking/widgets/notransaction.dart';
+import '../provider/app_data.dart';
+import '../widgets/deposit_list_card.dart';
+import '../widgets/notransaction.dart';
 
 import '../util/utils.dart';
 

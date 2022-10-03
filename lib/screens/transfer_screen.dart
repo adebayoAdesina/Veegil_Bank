@@ -1,14 +1,14 @@
-import 'dart:async';
+
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_banking/provider/sign_user.dart';
-import 'package:simple_banking/provider/transfer_provider.dart';
-import 'package:simple_banking/screens/navigation_bottom_tab.dart';
-import 'package:simple_banking/widgets/log_button.dart';
-import 'package:simple_banking/widgets/transaction_alert.dart';
+import '../provider/sign_user.dart';
+import '../provider/transfer_provider.dart';
+import '../screens/navigation_bottom_tab.dart';
+import '../widgets/log_button.dart';
+import '../widgets/transaction_alert.dart';
 
 import '../constant/colors.dart';
 import '../provider/app_data.dart';
