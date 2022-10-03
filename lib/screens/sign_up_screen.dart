@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
       Navigator.pushReplacementNamed(context, LogInScreen.id);
     } else {
-      logDialog(response, context);
+      logDialog(response, context, Icons.error_outline_rounded, Colors.red);
       setState(() {
         _isLoading = false;
       });

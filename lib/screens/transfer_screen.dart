@@ -113,9 +113,9 @@ class _TransferScreenState extends State<TransferScreen> {
                                           });
                                         } else {
                                           logDialog(
-                                            'Your cant transfer more than your ${userSalary.accountBalance}',
-                                            context,
-                                          );
+                                              'Your cant transfer more than your ${userSalary.accountBalance}',
+                                              context,
+                                              Icons.error_outline_rounded, Colors.red);
                                         }
                                       })
                                 ],
@@ -131,20 +131,10 @@ class _TransferScreenState extends State<TransferScreen> {
                                   LogButton(
                                     size: size,
                                     text: 'Transfer',
-                                    onTap: () {
+                                    onTap: () async {
                                       if (user.user.number != phoneNumber ||
                                           user.user.password == password) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              TransactionAlert(
-                                            title: 'Are you sure?',
-                                            subTitle:
-                                                'Click yes to proceed transaction',
-                                            noFunction: () =>
-                                                Navigator.pop(context),
-                                            yesFunction: () async {
-                                              if (amount != 0 ||
+                                        if (amount != 0 ||
                                                   password != '' ||
                                                   description != '') {
                                                 // Navigator.pop(context);
@@ -180,39 +170,24 @@ class _TransferScreenState extends State<TransferScreen> {
                                                     context,
                                                     NavigationBottomTab.id,
                                                   );
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        Dialog(
-                                                      child: CachedNetworkImage(
-                                                        errorWidget: (context,
-                                                                url, error) =>
-                                                            const Center(
-                                                          child:
-                                                              CircularProgressIndicator(),
-                                                        ),
-                                                        // 07035554425
-                                                        imageUrl:
-                                                            'https://giphy.com/embed/rx8Bp7bOYUiTv4NEWA',
-                                                        width: SizeConfig
-                                                                .blockSizeHorizontal! *
-                                                            5,
-                                                      ),
-                                                    ),
-                                                  );
+                                                  logDialog('Done', context, Icons.done_all, Colors.green);
                                                 }
                                               }
-                                            },
-                                          ),
-                                        );
+                                            
                                       } else if (user.user.number ==
                                           phoneNumber) {
                                         logDialog(
-                                            'You cant transfer to your account',
-                                            context);
+                                          'You cant transfer to your account',
+                                          context,
+                                          Icons.error_outline_rounded, Colors.red
+                                        );
                                       } else if (user.user.password !=
                                           password) {
-                                        logDialog('Wrong Password', context);
+                                        logDialog(
+                                          'Wrong Password',
+                                          context,
+                                          Icons.error_outline_rounded, Colors.red,
+                                        );
                                       }
                                     },
                                   ),

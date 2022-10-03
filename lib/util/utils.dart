@@ -50,7 +50,7 @@ EdgeInsets uContentPadding = const EdgeInsets.only(top: 30,left: 20);
 EdgeInsets uRightContentPadding = const EdgeInsets.only(right: 20);
 
 
-Future<dynamic> logDialog(String response, BuildContext context) {
+Future<dynamic> logDialog(String response, BuildContext context, IconData icon, Color color ) {
     return showDialog(
       context: context,
       builder: (context) => Dialog(
@@ -61,8 +61,9 @@ Future<dynamic> logDialog(String response, BuildContext context) {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.error_outline_rounded, color: Colors.red, size: 60,),
+                  Icon(icon, color: color, size: 60,),
                   Text(response, style: TextStyle(fontSize: 20) , textAlign: TextAlign.center,),
                 ],
               ),

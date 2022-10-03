@@ -18,7 +18,7 @@ class ProfileListCard extends StatelessWidget {
     return GestureDetector(
       onTap: isLogOut == true
           ? () => Navigator.pushNamedAndRemoveUntil(context, LogInScreen.id, (route) => false)
-          // ? () => Navigator.pushReplacementNamed(context, LogInScreen.id)
+         
           : (() => {}),
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15),

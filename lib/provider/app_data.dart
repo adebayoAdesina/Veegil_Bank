@@ -69,7 +69,9 @@ class AppData with ChangeNotifier {
 
   Stream<String> getusers(Duration refreshTime) async* {
     while (true) {
+      deposit = [];
       await Future.delayed(refreshTime);
+      deposit = [];
       yield await getUser(
         SignUser(
           phoneNumber: currentUserPhoneNumber,
@@ -84,6 +86,8 @@ class AppData with ChangeNotifier {
 
     allRecieved = [];
     allTransfer = [];
+    deposit = [];
+
     //URL + Request structures
     // GET /auth/login/phoneNumber
     String getIfLoggedInUrl =
@@ -125,6 +129,7 @@ class AppData with ChangeNotifier {
                 jsonDecode(getUserTransferResponse.body);
             List<Transfer> transactionList = [];
             List<AccountType> getUserDetailList = [];
+            withdraw = [];
             if (getUserDepositDetail != null) {
               for (var item in getUserDepositDetail.keys) {
                 var getDeposit = getUserDepositDetail[item];

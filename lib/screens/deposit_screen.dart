@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_banking/provider/deposit_provider.dart';
+import 'package:simple_banking/screens/navigation_bottom_tab.dart';
 
 import '../constant/colors.dart';
 import '../provider/app_data.dart';
@@ -92,7 +93,10 @@ class _DepositScreenState extends State<DepositScreen> {
                               size: size,
                               text: 'Deposit',
                               onTap: () async {
-                                if (password == user.password) {
+                                if (password == user.password ) {
+                                  setState(() {
+                                    _isLoad = true;
+                                  });
                                   var response =
                                       await deposit.depositToSelfAccount(
                                     user.id,
@@ -101,12 +105,17 @@ class _DepositScreenState extends State<DepositScreen> {
                                     user.currentUserPhoneNumber,
                                     user.depositId,
                                   );
-                                  print(response);
+                                  if (response == 'success') {
+                                    setState(() {
+                                      _isLoad = false;
+                                    });
+                                    Navigator.pushReplacementNamed(
+                                        context, NavigationBottomTab.id);
+                                    logDialog('Done', context, Icons.done_all, Colors.green);
+                                  }
                                 } else {
-                                  logDialog(
-                                    'Wrong password',
-                                    context,
-                                  );
+                                  logDialog('Wrong password', context,
+                                      Icons.error_outline_rounded, Colors.red);
                                 }
                               })
                         ],
@@ -140,6 +149,7 @@ class _DepositScreenState extends State<DepositScreen> {
         //   //   return 'Invalid Username';
         //   // }
         // },
+        obscureText: isObscure,
         decoration: InputDecoration(
           fillColor: AppColor().kGrayThreeColor.withOpacity(0.5),
           filled: true,

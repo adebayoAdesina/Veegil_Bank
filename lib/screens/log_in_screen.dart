@@ -71,7 +71,7 @@ class _LogInScreenState extends State<LogInScreen> {
       // );
       Navigator.pushNamedAndRemoveUntil(context, NavigationBottomTab.id, (route) => false);
     } else {
-      logDialog(response, context);
+      logDialog(response, context, Icons.error_outline_rounded, Colors.red);
       setState(() {
         _isLoading = false;
       });
