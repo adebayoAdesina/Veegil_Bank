@@ -86,81 +86,83 @@ class _LogInScreenState extends State<LogInScreen> {
       inAsyncCall: _isLoading,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: uLogAppLogo(size.width * 0.43),
-          ),
-          body: Padding(
-            padding: uLogPadding(size),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Form(
-                  key: formKey,
-                  child: SingleChildScrollView(
-                    physics: const ScrollPhysics(),
-                    child: Column(
-                      children: [
-                        InputTextField(
-                          hintText: 'phone number',
-                          onChanged: (e) => setState(() {
-                            phoneNumber = e;
-                          }),
-                          keyboard: TextInputType.number,
-                          icon: Icons.phone,
-                          userInputType: SignUpInput.phoneNumber,
-                          validate: (value) {
-                            if (!value.isValidPhone) {
-                              return 'Enter valid Phone Number';
-                            }
-                          },
-                        ),
-                        uLogSizedBoxH(),
-                        InputTextField(
-                          hintText: 'password',
-                          onChanged: (e) => setState(() {
-                            password = e;
-                          }),
-                          validate: (value) {
-                            // if (!value.isValidPassword) {
-                            //   return 'Enter valid Password';
-                            // }
-                          },
-                          keyboard: TextInputType.text,
-                          icon: Icons.password_rounded,
-                          isObscure: true,
-                          userInputType: SignUpInput.phoneNumber,
-                        ),
-                        uLogSizedBoxH(),
-                        LogButton(
-                          size: size,
-                          text: 'Log in',
-                          onTap: () => _submit(),
-                        ),
-                      ],
+        child: SingleChildScrollView(
+          child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: uLogAppLogo(size.width * 0.43),
+            ),
+            body: Padding(
+              padding: uLogPadding(size),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Form(
+                    key: formKey,
+                    child: SingleChildScrollView(
+                      physics: const ScrollPhysics(),
+                      child: Column(
+                        children: [
+                          InputTextField(
+                            hintText: 'phone number',
+                            onChanged: (e) => setState(() {
+                              phoneNumber = e;
+                            }),
+                            keyboard: TextInputType.number,
+                            icon: Icons.phone,
+                            userInputType: SignUpInput.phoneNumber,
+                            validate: (value) {
+                              if (!value.isValidPhone) {
+                                return 'Enter valid Phone Number';
+                              }
+                            },
+                          ),
+                          uLogSizedBoxH(),
+                          InputTextField(
+                            hintText: 'password',
+                            onChanged: (e) => setState(() {
+                              password = e;
+                            }),
+                            validate: (value) {
+                              // if (!value.isValidPassword) {
+                              //   return 'Enter valid Password';
+                              // }
+                            },
+                            keyboard: TextInputType.text,
+                            icon: Icons.password_rounded,
+                            isObscure: true,
+                            userInputType: SignUpInput.phoneNumber,
+                          ),
+                          uLogSizedBoxH(),
+                          LogButton(
+                            size: size,
+                            text: 'Log in',
+                            onTap: () => _submit(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                uLogSizedBoxH(),
-                Text(
-                  'Forget Password',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                  uLogSizedBoxH(),
+                  Text(
+                    'Forget Password',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                    ),
                   ),
-                ),
-                uLogSizedBoxH(),
-                uLogSizedBoxH(),
-                SwitchUser(
-                  info: 'Don\'t have an account? ',
-                  switchUser: 'Sign up',
-                  onTap: () => Navigator.pushReplacementNamed(
-                    context,
-                    SignUpScreen.id,
+                  uLogSizedBoxH(),
+                  uLogSizedBoxH(),
+                  SwitchUser(
+                    info: 'Don\'t have an account? ',
+                    switchUser: 'Sign up',
+                    onTap: () => Navigator.pushReplacementNamed(
+                      context,
+                      SignUpScreen.id,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

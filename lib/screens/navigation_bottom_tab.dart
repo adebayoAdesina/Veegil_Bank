@@ -18,9 +18,7 @@ class _NavigationBottomTabState extends State<NavigationBottomTab> {
 
   @override
 
-GestureDetector getGesture (context) {
-    return GestureDetector(onTap: (() => context.read<AppColor>().changeColor()));
-  }
+
   final List<dynamic> _pages = const [
     HomeScreen(),
     // TransferScreen(),

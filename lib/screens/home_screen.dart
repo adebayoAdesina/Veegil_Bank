@@ -34,10 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SafeArea(
           child: SingleChildScrollView(
               physics: const ScrollPhysics(),
-              child: StreamBuilder(
-                initialData: 0,
-                stream: userFunc.getusers(const Duration(seconds: 1)),
-        builder: (context, snapshot) =>Column(
+              child: 
+        //       StreamBuilder(
+        //         initialData: 0,
+        //         stream: userFunc.getusers(const Duration(seconds: 1)),
+        // builder: (context, snapshot) =>
+        Column(
                   children: [
                     uSafeAreaSizedBox,
                     Padding(
@@ -165,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-        ),
+        // ),
       
     );
   }

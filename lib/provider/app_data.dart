@@ -94,8 +94,8 @@ class AppData with ChangeNotifier {
         '$FLUTTER_APP_FIREBASE_URL/auth/login/${sign.phoneNumber}.json';
     try {
       var response = await http.get(Uri.parse(getIfLoggedInUrl));
-      Map<String, dynamic> data = jsonDecode(response.body);
-      var getKey = data.keys.first;
+      Map<String, dynamic>? data = jsonDecode(response.body);
+      var getKey = data!.keys.first;
       if (getKey.isNotEmpty) {
         var details = data[getKey];
         id = details['id'];
@@ -121,11 +121,11 @@ class AppData with ChangeNotifier {
             var getUserDetail = jsonDecode(getUserResponse.body);
             var getUserDepositResponse =
                 await http.get(Uri.parse(getUserDepositUrl));
-            Map<String, dynamic> getUserDepositDetail =
+            Map<String, dynamic>? getUserDepositDetail =
                 jsonDecode(getUserDepositResponse.body);
             var getUserTransferResponse =
                 await http.get(Uri.parse(getUserTransferUrl));
-            Map<String, dynamic> getUserTransferDetail =
+            Map<String, dynamic>? getUserTransferDetail =
                 jsonDecode(getUserTransferResponse.body);
             List<Transfer> transactionList = [];
             List<AccountType> getUserDetailList = [];
@@ -139,7 +139,7 @@ class AppData with ChangeNotifier {
                     isDeposit: getDeposit['isDeposit']));
               }
             }
-            print(deposit);
+            
             if (getUserTransferDetail != null) {
               for (var element in getUserTransferDetail.keys) {
                 var getsTransfers = getUserTransferDetail[element];
@@ -170,13 +170,10 @@ class AppData with ChangeNotifier {
                     ),
                   );
                 }
-                // 07035554425
 
               }
             }
-            // else {
-            //   print('object');
-            // }
+           
 
             for (var element in getUserDetail['accounts']) {
               var getsTransfers = element;
@@ -193,17 +190,6 @@ class AppData with ChangeNotifier {
               password: getUserDetail['password'],
               accounts:
                   (getUserDetail['accounts']) != null ? getUserDetailList : [],
-              // sents: (getUserWithdrawDetail != null)
-              //     ? (getUserWithdrawDetail)
-              //         .map(
-              //           (e) => Transfer(
-              //             amount: e['amount'],
-              //             description: e['description'],
-              //             phoneNumber: e['phoneNumber'],
-              //           ),
-              //         )
-              //         .toList()
-              //     : [],
               received: transactionList,
             );
             _isLoad = true;

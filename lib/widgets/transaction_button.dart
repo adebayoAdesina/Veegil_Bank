@@ -39,7 +39,7 @@ class TransactionButton extends StatelessWidget {
         ),
         Positioned(
           top: 60,
-          left: size.width *0.38,
+          left: size.width *0.28,
           child: Text(text, style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontSize: 40, fontWeight: FontWeight.w700 ),  ),
         ),
       ],
