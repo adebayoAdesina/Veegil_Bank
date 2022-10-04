@@ -4,7 +4,7 @@
 
 A bank app made Flutter + Firebase Realtime databse + Provider State Management.
 <br/>
-<a href='lib/build_apk/' download >DOWNLOAD APPLICATION</a>
+<a href='https://files.fm/f/ah43p69c5' download >DOWNLOAD APPLICATION</a>
 <br/>
 
 It consist of POST, GET and PATCH request.
