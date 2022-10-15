@@ -14,7 +14,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   LogInOrSignUpScreen.id: (context) => const LogInOrSignUpScreen(),
   LogInScreen.id: (context) => const LogInScreen(),
   SignUpScreen.id: (context) => const SignUpScreen(),
-  // HomeScreen.id: (context) => const HomeScreen()
   NavigationBottomTab.id: (context) => const NavigationBottomTab(),
   TransferScreen.id: (context) => const TransferScreen(),
   DepositScreen.id: (context) => const DepositScreen(),

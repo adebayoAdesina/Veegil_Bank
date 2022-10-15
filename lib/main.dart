@@ -9,9 +9,9 @@ import '../provider/app_data.dart';
 import '../provider/transfer_provider.dart';
 import '../routes/route.dart';
 import '../screens/splash_screen.dart';
+import 'screens/navigation_bottom_tab.dart';
 
-void main() async{
-  
+void main() async {
   runApp(const MyApp());
 }
 
@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => SignUser(),
         ),
-       
         ChangeNotifierProvider(
           create: (context) => TransferProvider(),
         ),
@@ -37,13 +36,13 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        systemNavigationBarColor: Color(0XFF4D4B4F), 
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-        
+        value: const SystemUiOverlayStyle(
+          systemNavigationBarColor: Color(0XFF4D4B4F),
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
         child: MaterialApp(
           color: const Color(0XFF252525),
+          debugShowCheckedModeBanner: false,
           title: 'Veegil Bank',
           theme: ThemeData(
             colorScheme: ColorScheme(
@@ -64,10 +63,9 @@ class MyApp extends StatelessWidget {
               backgroundColor: AppColor().kGrayOneColor,
             ),
           ),
-          initialRoute: SplashScreen.id,
-          // initialRoute: NavigationBottomTab.id,
+          // initialRoute: SplashScreen.id,
+          initialRoute: NavigationBottomTab.id,
           routes: routes,
-          
         ),
       ),
     );

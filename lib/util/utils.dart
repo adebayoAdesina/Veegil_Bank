@@ -15,8 +15,8 @@ class SizeConfig {
     screenHeight = _mediaQueryData!.size.height;
     blockSizeHorizontal = (screenWidth!) / 100;
     blockSizeVertical = (screenHeight!) / 100;
-    headingFontSize = blockSizeHorizontal! * 4.1;
-    subHeadingFontSize = blockSizeHorizontal! * 3.8;
+    headingFontSize = blockSizeHorizontal! * 3.6;
+    subHeadingFontSize = blockSizeHorizontal! * 3.2;
   }
 }
 

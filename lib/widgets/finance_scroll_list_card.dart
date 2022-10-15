@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'finance_scroll_card.dart';
 
 class FinanceScrollListCard extends StatelessWidget {
-  const FinanceScrollListCard({
+  const       FinanceScrollListCard({
     Key? key,
     required this.bonus,
   }) : super(key: key);

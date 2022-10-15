@@ -68,16 +68,18 @@ class AppData with ChangeNotifier {
   }
 
   Stream<String> getusers(Duration refreshTime) async* {
-    while (true) {
-      deposit = [];
-      await Future.delayed(refreshTime);
-      deposit = [];
-      yield await getUser(
-        SignUser(
-          phoneNumber: currentUserPhoneNumber,
-          password: password,
-        ),
-      );
+    if (id != '') {
+      while (true) {
+        deposit = [];
+        await Future.delayed(refreshTime);
+        deposit = [];
+        yield await getUser(
+          SignUser(
+            phoneNumber: currentUserPhoneNumber,
+            password: password,
+          ),
+        );
+      }
     }
   }
 
@@ -139,7 +141,7 @@ class AppData with ChangeNotifier {
                     isDeposit: getDeposit['isDeposit']));
               }
             }
-            
+
             if (getUserTransferDetail != null) {
               for (var element in getUserTransferDetail.keys) {
                 var getsTransfers = getUserTransferDetail[element];
@@ -170,10 +172,8 @@ class AppData with ChangeNotifier {
                     ),
                   );
                 }
-
               }
             }
-           
 
             for (var element in getUserDetail['accounts']) {
               var getsTransfers = element;

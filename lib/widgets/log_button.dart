@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_banking/util/utils.dart';
 import '../constant/colors.dart';
 
 class LogButton extends StatelessWidget {
@@ -16,19 +17,21 @@ class LogButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GestureDetector(
       onTap: (() => onTap()),
       child: Container(
         width: size.width * 0.9,
-        height: 60,
+        height: 50,
         decoration: BoxDecoration(
-          
           color: isMain
               ? Theme.of(context).colorScheme.primary
               : AppColor().kGrayThreeOpacityColor,
           borderRadius: BorderRadius.circular(40),
           border: Border.all(
-            color: isMain ? Theme.of(context).colorScheme.primary: Theme.of(context).scaffoldBackgroundColor,
+            color: isMain
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).scaffoldBackgroundColor,
             width: isMain ? 0 : 1.0,
           ),
         ),
@@ -36,10 +39,11 @@ class LogButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              color: isMain ?  Theme.of(context).scaffoldBackgroundColor : Theme.of(context).colorScheme.onPrimary,
-              fontSize: 21,
-              fontWeight: FontWeight.w500
-            ),
+                color: isMain
+                    ? Theme.of(context).scaffoldBackgroundColor
+                    : Theme.of(context).colorScheme.onPrimary,
+                fontSize: SizeConfig.headingFontSize,
+                fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
         ),

@@ -160,7 +160,7 @@ class _DepositScreenState extends State<DepositScreen> {
             hintText,
           ),
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColor().kGrayOneColor,

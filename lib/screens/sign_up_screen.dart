@@ -107,11 +107,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (e) => setState(() {
                                 phoneNumber = e;
                               }),
-                               validate: (value) {
-                                 if (!value.isValidPhone) {
-                              return 'Enter valid Phone Number';
-                            }
-                               },
+                              validate: (value) {
+                                if (!value.isValidPhone) {
+                                  return 'Enter valid Phone Number';
+                                }
+                              },
                               keyboard: TextInputType.number,
                               icon: Icons.phone,
                               userInputType: SignUpInput.phoneNumber,
@@ -122,11 +122,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: (e) => setState(() {
                                 password = e;
                               }),
-                               validate: (value) {
-                                 if (!value.isValidPhone) {
-                              return 'Password shoulb be more than 8';
-                            }
-                               },
+                              validate: (value) {
+                                if (password == ' ') {
+                                  return 'Password should not be empty';
+                                }
+                              },
                               keyboard: TextInputType.text,
                               icon: Icons.password_rounded,
                               isObscure: true,
@@ -134,11 +134,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             uLogSizedBoxH(),
                             InputTextField(
-                               validate: (value) {
-                                 if (password != confirmPhoneNumber) {
-                                   return 'Password not match';
-                                 }
-                               },
+                              validate: (value) {
+                                if (password != confirmPhoneNumber) {
+                                  return 'Password not match';
+                                }
+                              },
                               hintText: 'confirm password',
                               onChanged: (e) => setState(() {
                                 confirmPhoneNumber = e;

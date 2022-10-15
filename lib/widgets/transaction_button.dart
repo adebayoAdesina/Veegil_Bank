@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_banking/util/utils.dart';
 
 class TransactionButton extends StatelessWidget {
   final String text;
   const TransactionButton({
     Key? key,
     required String transferUrl,
-    required this.size, required this.text,
-  }) : _transferUrl = transferUrl, super(key: key);
+    required this.size,
+    required this.text,
+  })  : _transferUrl = transferUrl,
+        super(key: key);
 
   final String _transferUrl;
   final Size size;
@@ -39,8 +42,15 @@ class TransactionButton extends StatelessWidget {
         ),
         Positioned(
           top: 60,
-          left: size.width *0.28,
-          child: Text(text, style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontSize: 40, fontWeight: FontWeight.w700 ),  ),
+          left: size.width * 0.36,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSecondary,
+              fontSize: SizeConfig.blockSizeHorizontal! * 4.4,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
       ],
     );

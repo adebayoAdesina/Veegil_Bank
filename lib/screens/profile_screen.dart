@@ -37,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text(
                 'My Account',
                 style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal! * 8,
+                  fontSize: SizeConfig.blockSizeHorizontal! * 6.0,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),

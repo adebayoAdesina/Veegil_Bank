@@ -6,7 +6,7 @@ import '../screens/profile_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class NavigationBottomTab extends StatefulWidget {
-  static const id = '/'; 
+  static const id = '/navigation'; 
   const NavigationBottomTab({Key? key}) : super(key: key);
 
   @override
@@ -21,7 +21,6 @@ class _NavigationBottomTabState extends State<NavigationBottomTab> {
 
   final List<dynamic> _pages = const [
     HomeScreen(),
-    // TransferScreen(),
     TransactionScreen(),
     ProfileScreen(),
   ];

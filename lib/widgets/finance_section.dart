@@ -26,7 +26,7 @@ class FinanceSection extends StatelessWidget {
         ),
         uContentSizedBoxH(),
         SizedBox(
-          height: 140,
+          height: 120,
           width: double.infinity,
 
           child: FinanceScrollListCard(bonus: bonus),

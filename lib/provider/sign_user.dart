@@ -29,7 +29,7 @@ class SignUser with ChangeNotifier {
     try {
       var checker = await http.get(Uri.parse(logInUrl));
       var data = json.decode(checker.body);
-      print(data);
+      
       if (data == null) {
         try {
           final response = await http.post(

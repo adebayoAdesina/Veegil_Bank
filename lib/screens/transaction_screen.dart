@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../animation/fadeIn_route.dart';
 import '../screens/transfer_screen.dart';
@@ -30,7 +29,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () => Navigator.push(context, FadeInRoute(page: const TransferScreen(), routeName: TransferScreen.id,),),
+              onTap: () => Navigator.push(
+                context,
+                FadeInRoute(
+                  page: const TransferScreen(),
+                  routeName: TransferScreen.id,
+                ),
+              ),
               child: TransactionButton(
                 transferUrl: _transferUrl,
                 size: size,
@@ -41,7 +46,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
             uSafeAreaSizedBox,
             uSafeAreaSizedBox,
             GestureDetector(
-              onTap: () => Navigator.push(context, FadeInRoute(page: const DepositScreen(), routeName: DepositScreen.id)),
+              onTap: () => Navigator.push(
+                  context,
+                  FadeInRoute(
+                      page: const DepositScreen(),
+                      routeName: DepositScreen.id)),
               child: TransactionButton(
                 transferUrl: _depositUrl,
                 size: size,
