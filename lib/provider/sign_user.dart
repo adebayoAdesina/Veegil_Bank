@@ -29,7 +29,8 @@ class SignUser with ChangeNotifier {
     try {
       var checker = await http.get(Uri.parse(logInUrl));
       var data = json.decode(checker.body);
-      
+      Map<dynamic, dynamic> signInValue = {};
+      print(data);
       if (data == null) {
         try {
           final response = await http.post(
@@ -42,6 +43,7 @@ class SignUser with ChangeNotifier {
             ),
           );
           Map<dynamic, dynamic> value = jsonDecode(response.body);
+          signInValue = value;
 
           // Post / accounts
           String bankUrl =
@@ -95,7 +97,6 @@ class SignUser with ChangeNotifier {
           );
           final withdrawValue = jsonDecode(withdrawResponse.body);
 
-
           // Post / accounts/deposit
           String depositUrl =
               '$FLUTTER_APP_FIREBASE_URL/users/${value['name']}/deposit.json';
@@ -118,7 +119,7 @@ class SignUser with ChangeNotifier {
                 'bankId': bankValue['name'],
                 'transferId': transferValue['name'],
                 'withdrawId': withdrawValue['name'],
-                'depositId' : depositValue['name'],
+                'depositId': depositValue['name'],
               },
             ),
           );
@@ -126,7 +127,25 @@ class SignUser with ChangeNotifier {
           print(value["name"]);
           notifyListeners();
         } catch (e) {
-          print(e.toString());
+          try {
+            String bankUrl =
+                '$FLUTTER_APP_FIREBASE_URL/users/${signInValue['name']}/account.json';
+            String transferUrl =
+                '$FLUTTER_APP_FIREBASE_URL/users/${signInValue['name']}/transfer.json';
+            String depositUrl =
+                '$FLUTTER_APP_FIREBASE_URL/users/${signInValue['name']}/deposit.json';
+            // deleting user details if something went wrong
+            var removeUser = await http.delete(Uri.parse(signUpUrl));
+            var removeUserBank = await http.delete(Uri.parse(bankUrl));
+            var removeUserTransfer = await http.delete(Uri.parse(transferUrl));
+            var removeUserdeposit = await http.delete(Uri.parse(depositUrl));
+            var removeUserLogin = await http.delete(Uri.parse(logInUrl));
+            res = 'An error occur';
+            print(
+                '$removeUserLogin  $removeUserdeposit $removeUserTransfer $removeUser $removeUserBank');
+          } catch (e) {
+            print(e.toString());
+          }
         }
       } else {
         res = 'Phone number Already exist';

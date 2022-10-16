@@ -65,10 +65,6 @@ class _LogInScreenState extends State<LogInScreen> {
       setState(() {
         _isLoading = false;
       });
-      // Navigator.pushReplacementNamed(
-      //   context,
-      //   NavigationBottomTab.id,
-      // );
       Navigator.pushNamedAndRemoveUntil(context, NavigationBottomTab.id, (route) => false);
     } else {
       logDialog(response, context, Icons.error_outline_rounded, Colors.red);
@@ -89,78 +85,80 @@ class _LogInScreenState extends State<LogInScreen> {
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: uLogAppLogo(size.width * 0.43),
+            title: uLogAppLogo(size.width * 0.30),
           ),
-          body: Padding(
-            padding: uLogPadding(size),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Form(
-                  key: formKey,
-                  child: SingleChildScrollView(
-                    physics: const ScrollPhysics(),
-                    child: Column(
-                      children: [
-                        InputTextField(
-                          hintText: 'phone number',
-                          onChanged: (e) => setState(() {
-                            phoneNumber = e;
-                          }),
-                          keyboard: TextInputType.number,
-                          icon: Icons.phone,
-                          userInputType: SignUpInput.phoneNumber,
-                          validate: (value) {
-                            if (!value.isValidPhone) {
-                              return 'Enter valid Phone Number';
-                            }
-                          },
-                        ),
-                        uLogSizedBoxH(),
-                        InputTextField(
-                          hintText: 'password',
-                          onChanged: (e) => setState(() {
-                            password = e;
-                          }),
-                          validate: (value) {
-                            // if (!value.isValidPassword) {
-                            //   return 'Enter valid Password';
-                            // }
-                          },
-                          keyboard: TextInputType.text,
-                          icon: Icons.password_rounded,
-                          isObscure: true,
-                          userInputType: SignUpInput.phoneNumber,
-                        ),
-                        uLogSizedBoxH(),
-                        LogButton(
-                          size: size,
-                          text: 'Log in',
-                          onTap: () => _submit(),
-                        ),
-                      ],
+          body: Center(
+            child: SingleChildScrollView(
+               physics: const ScrollPhysics(),
+              child: Padding(
+                padding: uLogPadding(size),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          InputTextField(
+                            hintText: 'phone number',
+                            onChanged: (e) => setState(() {
+                              phoneNumber = e;
+                            }),
+                            keyboard: TextInputType.number,
+                            icon: Icons.phone,
+                            userInputType: SignUpInput.phoneNumber,
+                            validate: (value) {
+                              if (!value.isValidPhone) {
+                                return 'Enter valid Phone Number';
+                              }
+                            },
+                          ),
+                          uLogSizedBoxH(),
+                          InputTextField(
+                            hintText: 'password',
+                            onChanged: (e) => setState(() {
+                              password = e;
+                            }),
+                            validate: (value) {
+                              // if (!value.isValidPassword) {
+                              //   return 'Enter valid Password';
+                              // }
+                            },
+                            keyboard: TextInputType.text,
+                            icon: Icons.password_rounded,
+                            isObscure: true,
+                            userInputType: SignUpInput.phoneNumber,
+                          ),
+                          uLogSizedBoxH(),
+                          LogButton(
+                            size: size,
+                            text: 'Log in',
+                            onTap: () => _submit(),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                    uLogSizedBoxH(),
+                    Text(
+                      'Forget Password',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                      ),
+                    ),
+                    uLogSizedBoxH(),
+                    uLogSizedBoxH(),
+                    SwitchUser(
+                      info: 'Don\'t have an account? ',
+                      switchUser: 'Sign up',
+                      onTap: () => Navigator.pushReplacementNamed(
+                        context,
+                        SignUpScreen.id,
+                      ),
+                    ),
+                  ],
                 ),
-                uLogSizedBoxH(),
-                Text(
-                  'Forget Password',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                  ),
-                ),
-                uLogSizedBoxH(),
-                uLogSizedBoxH(),
-                SwitchUser(
-                  info: 'Don\'t have an account? ',
-                  switchUser: 'Sign up',
-                  onTap: () => Navigator.pushReplacementNamed(
-                    context,
-                    SignUpScreen.id,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),

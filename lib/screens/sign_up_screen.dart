@@ -84,7 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           appBar: AppBar(
-            title: uLogAppLogo(size.width * 0.43),
+            title: uLogAppLogo(size.width * 0.30),
             centerTitle: true,
           ),
           body: Center(

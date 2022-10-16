@@ -13,21 +13,14 @@ class LogInOrSignUpScreen extends StatefulWidget {
 }
 
 class _LogInOrSignUpScreenState extends State<LogInOrSignUpScreen> {
-  static const snackBarDuration = Duration(seconds: 3);
-
-  final snackBar = const SnackBar(
-    content: Text('Press back again to leave'),
-    duration: snackBarDuration,
-  );
-
-  DateTime? backButtonPressTime;
+  DateTime pre_backpress = DateTime.now();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop:()=> handleWillPop(context),
-        child: Center(
+    return WillPopScope(
+      onWillPop: () => handleWillPop(context),
+      child: Scaffold(
+        body: Center(
           child: SingleChildScrollView(
             physics: const ScrollPhysics(),
             child: Padding(
@@ -61,17 +54,24 @@ class _LogInOrSignUpScreenState extends State<LogInOrSignUpScreen> {
   }
 
   Future<bool> handleWillPop(BuildContext context) async {
-    final now = DateTime.now();
-    final backButtonHasNotBeenPressedOrSnackBarHasBeenClosed =
-        backButtonPressTime == null ||
-            now.difference(backButtonPressTime!) > snackBarDuration;
+    final timegap = DateTime.now().difference(pre_backpress);
 
-    if (backButtonHasNotBeenPressedOrSnackBarHasBeenClosed) {
-      backButtonPressTime = now;
-      Scaffold.of(context).showSnackBar(snackBar);
+    final cantExit = timegap >= const Duration(seconds: 2);
+
+    pre_backpress = DateTime.now();
+
+    if (cantExit) {
+      //show snackbar
+      const snack = SnackBar(
+        content: Text('Press Back button again to Exit'),
+        duration: Duration(seconds: 2),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+
       return false;
+    } else {
+      return true;
     }
-
-    return true;
   }
 }

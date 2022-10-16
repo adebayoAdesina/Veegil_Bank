@@ -17,7 +17,9 @@ class InputTextField extends StatefulWidget {
     required this.onChanged,
     this.isObscure = false,
     this.keyboard = TextInputType.text,
-    required this.icon, required this.userInputType, required this.validate,
+    required this.icon,
+    required this.userInputType,
+    required this.validate,
   }) : super(key: key);
 
   @override
@@ -28,7 +30,7 @@ class _InputTextFieldState extends InputsFunction {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    
+
     return TextFormField(
       keyboardType: widget.keyboard,
       style: TextStyle(
@@ -37,19 +39,20 @@ class _InputTextFieldState extends InputsFunction {
       ),
       onChanged: (e) => widget.onChanged(e),
       obscureText: widget.isObscure,
-      validator: (value)=>widget.validate(value!),
+      validator: (value) => widget.validate(value!),
       decoration: InputDecoration(
         fillColor: AppColor().kGrayThreeColor.withOpacity(0.5),
         filled: true,
         prefixIcon: Container(
           margin: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
-              border: Border(
-            right: BorderSide(
-              width: 1,
-              color: Theme.of(context).colorScheme.primary,
+            border: Border(
+              right: BorderSide(
+                width: 1,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
-          )),
+          ),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Icon(
@@ -59,7 +62,7 @@ class _InputTextFieldState extends InputsFunction {
           ),
         ),
         contentPadding:
-            const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         hintText: widget.hintText,
         border: OutlineInputBorder(
           borderSide: BorderSide(
@@ -83,7 +86,6 @@ class _InputTextFieldState extends InputsFunction {
     );
   }
 }
-
 
 abstract class InputsFunction extends State<InputTextField> {
   String hello = 'hello';
